@@ -23996,3 +23996,38 @@ table.table-bordered.dataTable td {
 #GetMasterList .modal, #WarHousePopup .modal { 
         top: 350px;
 }
+
+#WarHousePopup .modal-body {
+    height: auto;
+}
+
+#WarHousePopup .modal-dialog {
+    top: 13px;
+    max-width: 1000px;
+}
+
+
+#WarHousePopup .modal {
+    top: 350px;
+}
+
+/* Remove default bullets */
+ul, #myUL {
+    list-style-type: none;
+}
+
+/* Remove margins and padding from the parent ul */
+#myUL {
+    margin: 0;
+    padding: 0;
+}
+
+
+#treeUrl {
+    font-family: Arial, sans-serif; /* Change the font family to your desired font */
+    font-size: 14px; /* Change the font size to your desired size */
+    text-decoration: none; /* Remove the underline from links */
+    color: black;
+    text-transform: lowercase;
+}
+    
