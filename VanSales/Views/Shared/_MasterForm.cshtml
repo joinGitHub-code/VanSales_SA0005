@@ -1,0 +1,40 @@
+﻿
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="">Name </label>
+            <input type="text" class=" mandatory form-control" id="sName" autocomplete="off" />
+        </div>
+    </div>
+
+
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="">Code</label>
+            <input type="text" class="mandatory form-control" id="sCode" autocomplete="off" />
+
+
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for=""><b>AltName</b></label>
+            <input type="text" class=" form-control" placeholder="" id="sAltname" autocomplete="off">
+
+        </div>
+    </div>
+                <input type="hidden" class="form-check-input ml-2" id="bGroup" value=false>
+           
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for=""><b>Parent</b></label>
+            <input class="form-control" type="text" id="sParent" placeholder="--Select--" onfocus="DataloadMaster('#sParent','/Master/GetAutoComplete','GetParentMaster')" />
+            <input type="hidden" id="sParent-id" value="0" />
+
+        </div>
+    </div>
+
+
+</div>
+

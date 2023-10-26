@@ -1,0 +1,90 @@
+﻿@model VanSale.ViewModels.DetailsViewModel
+<section class="content mt-60" style="margin-top: 60px !important;">
+    <input type="hidden" id="hdn_SessionUID" value="@Model.uId" />   
+    @*<input type="hidden" id="hdn_rowId" value="Model.uName" />*@
+    <input type="hidden" id="hdn_MenuId" value="@Model.menuId" />
+   @* <input type="hidden" id="hdn_Title" value="@Model.title" />*@
+    <input type="hidden" id="hdn_iId" value="0">
+    <div class="block-header" style="padding-bottom: 0px;">
+        <div class="row" style="height: 45px;">
+            <div class="col-lg-6">
+                <h2 style="color:white">
+                    @Model.title
+                </h2>
+            </div>
+
+            <div class="col-lg-6 js-sweetalert">
+                <ul class="abs" id="MenuBtns" style="list-style: none; float: right; display: -webkit-box;">
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnNew">
+                            <i class="zmdi zmdi-plus"></i> New
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnNewGroup">
+                            <i class="zmdi zmdi-plus"></i> Add Group
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnSummaryEdit">
+                            <i class="zmdi zmdi-edit"></i> Edit
+                        </button>
+                    </li>
+                    <li style="display:none">
+                        <button class="btn btn-primary btn-round btn-sm" id="btnPost">
+                            <i class="zmdi zmdi-save"></i> Save
+                        </button>
+                    </li>
+                 
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnDelete" >
+                            <i class="zmdi zmdi-delete"></i> Delete
+                        </button>
+                    </li>
+                   
+                  
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnClose">
+                            <i class="zmdi zmdi-close"></i> Close
+                        </button>
+                    </li>
+                  
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="Summary" style="display:block">
+        <partial name="_MasterSummaryPartial" view-data="ViewData" />
+    </div>
+ 
+    @*Body part Delete- btndeletebody*@
+    <div class="modal" id="modal-DeleteConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btnclosede">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msg"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnyes" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                    <button id="btnno" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   </section>
+    @section Scripts{
+        <link href="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+        <script src="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+        <script src="~/js/Scripts/CustomScripts/masters/Home.js" asp-append-version="true"></script>
+        <script src="~/js/Scripts/CustomScripts/AutoComplete.js" asp-append-version="true"></script>       
+    }
