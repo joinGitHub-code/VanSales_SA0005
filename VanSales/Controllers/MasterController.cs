@@ -97,42 +97,7 @@ namespace VanSale.Controllers
 
         #region VanSalesMasters
 
-        //[HttpPost]
-        //public async Task<string> Post(string obj, string sAPIName)
-        //{
-        //    var response = string.Empty;
-        //    try
-        //    {
-        //        using (var httpClient = new HttpClient(_clientHandler))
-        //        {
-        //            var stringContent = new StringContent(obj, System.Text.UnicodeEncoding.UTF8, "application/json");
-        //            StringContent newobj = stringContent;
-        //            var client = new HttpClient();
-        //            HttpResponseMessage result = await httpClient.PostAsync(api + sAPIName, stringContent);
-        //            if (result.IsSuccessStatusCode)
-        //            {
-        //                response = result.StatusCode.ToString();
-        //            }
-        //            else
-        //            {
-        //                string content = await result.Content.ReadAsStringAsync();
-        //                var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(content);
-        //                // Extract and return the MessageDescription
-        //                if (errorResponse != null)
-        //                {
-        //                    response = errorResponse.MessageDescription;
-        //                }
-        //            }
-        //        }
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
-        //        l.CreateLog(GetType().Name + "\nMethod: " + actionName + "\n " + ex.ToString(), logpath);
-        //        return response;
-        //    }
-        //}
+     
 
         [HttpPost]
         public async Task<string> Post(string obj, string sAPIName)
@@ -150,27 +115,7 @@ namespace VanSale.Controllers
                     //{
                     string responseContent = await result.Content.ReadAsStringAsync();
                     response = responseContent;
-                    //}
-                    //else
-                    //{
-                    //string content = await result.Content.ReadAsStringAsync();
-                    //var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(content);
-                    //// Extract and return the MessageDescription
-                    //if (errorResponse != null)
-                    //{
-                    //
-                    //    response = errorResponse.MessageDescription;
-                    //}
-
-
-                    //string content = await result.Content.ReadAsStringAsync();
-                    //// var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(content);
-                    //// Extract and return the MessageDescription
-                    //if (content != null)
-                    //{
-                    //    response = content;
-                    //}
-                    //}
+                    
                 }
                 return response;
             }
@@ -242,7 +187,7 @@ namespace VanSale.Controllers
 
 
         [HttpGet]
-        //public async Task<IActionResult> GetDetails(string sAPIName, int iId, int iMaster)
+       
         public async Task<IActionResult> GetDetails(string sAPIName, Dictionary<string, string> queryParameters = null)
         {
            var relativeUrl = sAPIName;
@@ -424,32 +369,6 @@ namespace VanSale.Controllers
 
         #endregion
 
-
-        //    private static async Task<HttpClient> SetTokens(APIKeysHelper keys, HttpClient client, string baseUri)
-        //    {
-        //        client.DefaultRequestHeaders.Clear();
-
-        //        // Create a dictionary to map BaseURI values to their respective tokens
-        //        Dictionary<string, string> tokenMap = new Dictionary<string, string>
-        //{
-        //    { keys.SECURITY_BASEPATH, token_Security }
-
-        //};
-
-        //        // Get the token based on the provided baseUri
-        //        if (tokenMap.TryGetValue(baseUri, out string token))
-        //        {
-        //            if (string.IsNullOrWhiteSpace(token))
-        //            {
-        //                token = await APITokenUpdate(baseUri);
-        //                tokenMap[baseUri] = token;
-        //            }
-
-        //            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
-        //        }
-
-        //        return client;
-        //    }
         #region TreeView
         [HttpGet]
         public async Task<IActionResult> GetTreeData(string sAPIName, int iParentId, int iMaster)
@@ -539,9 +458,6 @@ namespace VanSale.Controllers
                 {
                     apiUrl += "?iParentId=" + iParentId + "&iId=" + iId + "&iMenuId=" + iMenuId;
                 }
-
-
-
                 using (var httpClient = new HttpClient(_clientHandler))
                 {
                     using (var response = await httpClient.GetAsync(apiUrl))
