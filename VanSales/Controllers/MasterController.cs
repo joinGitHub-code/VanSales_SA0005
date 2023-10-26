@@ -6,10 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection.Metadata;
@@ -30,8 +33,8 @@ namespace VanSale.Controllers
         string api = "";
         private object json;
         string logpath = "";
-        Logs l = new Logs(); 
-       
+        Logs l = new Logs();
+        static DataTable dt, dtReports, dtMasterReports;
 
         private readonly ILogger<MasterController> _logger;
         public IConfiguration configuration;
@@ -180,7 +183,7 @@ namespace VanSale.Controllers
         }
 
        
-        public async Task<JsonResult> MasterSummaryDataTable(JqueryDatatableParam param, string sAPIName, int iMaster)
+        public async Task<JsonResult> MasterSummaryDataTable(JqueryDatatableParam param, string sAPIName, int iMaster, int iParent)
         {
            
        
@@ -199,6 +202,10 @@ namespace VanSale.Controllers
                 }
                 _ndataSummary = new List<SummaryDatatable>();
                 string apiUrl = $"{api}{sAPIName}?DisplayLength={param.iDisplayLength}&DisplayStart={param.iDisplayStart}&iUserId={iUId}&Search={param.sSearch}";
+                if (iParent != 0)
+                {
+                    apiUrl += $"&iParent={iParent}";
+                }
                 if (iMaster != 0)
                 {
                     apiUrl += $"&iMaster={iMaster}";
@@ -417,35 +424,285 @@ namespace VanSale.Controllers
 
         #endregion
 
-        
-    //    private static async Task<HttpClient> SetTokens(APIKeysHelper keys, HttpClient client, string baseUri)
-    //    {
-    //        client.DefaultRequestHeaders.Clear();
 
-    //        // Create a dictionary to map BaseURI values to their respective tokens
-    //        Dictionary<string, string> tokenMap = new Dictionary<string, string>
-    //{
-    //    { keys.SECURITY_BASEPATH, token_Security }
+        //    private static async Task<HttpClient> SetTokens(APIKeysHelper keys, HttpClient client, string baseUri)
+        //    {
+        //        client.DefaultRequestHeaders.Clear();
 
-    //};
+        //        // Create a dictionary to map BaseURI values to their respective tokens
+        //        Dictionary<string, string> tokenMap = new Dictionary<string, string>
+        //{
+        //    { keys.SECURITY_BASEPATH, token_Security }
 
-    //        // Get the token based on the provided baseUri
-    //        if (tokenMap.TryGetValue(baseUri, out string token))
-    //        {
-    //            if (string.IsNullOrWhiteSpace(token))
-    //            {
-    //                token = await APITokenUpdate(baseUri);
-    //                tokenMap[baseUri] = token;
-    //            }
+        //};
 
-    //            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
-    //        }
+        //        // Get the token based on the provided baseUri
+        //        if (tokenMap.TryGetValue(baseUri, out string token))
+        //        {
+        //            if (string.IsNullOrWhiteSpace(token))
+        //            {
+        //                token = await APITokenUpdate(baseUri);
+        //                tokenMap[baseUri] = token;
+        //            }
 
-    //        return client;
-    //    }
+        //            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
+        //        }
+
+        //        return client;
+        //    }
+        #region TreeView
+        [HttpGet]
+        public async Task<IActionResult> GetTreeData(string sAPIName, int iParentId, int iMaster)
+        {
+            string _sAPIFullPath = api + sAPIName + "?iParentId=" + iParentId + "&iMaster=" + iMaster;
+
+            try
+            {
+                using (var httpClient = new HttpClient(_clientHandler))
+                {
+                    using var response = await httpClient.GetAsync(_sAPIFullPath);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        var jsonResponse = JObject.Parse(apiResponse);
+                        if (jsonResponse.ContainsKey("ResultData"))
+                        {
+                            var resultData = jsonResponse["ResultData"].ToString();
+                            var data = JsonConvert.DeserializeObject<List<TreeNode>>(resultData);
+
+                            if (iParentId == 0)
+                            {
+                                // Handle the initial request for top-level nodes
+                                var treeData = new List<object>();
+
+                                // Add the root node with a specific ID and title
+                                treeData.Add(new
+                                {
+                                    id = 0, // Unique ID for the root node
+                                    text = "WareHouse", // Replace with the title of your root node
+                                    children = data
+                                        .Where(node => node.iParentId == 0)
+                                        .Select(node => new
+                                        {
+                                            id = node.iId,
+                                            text = node.sName,
+                                            children = true,
+                                            bGroup = node.bGroup
+                                        }),
+                                });
+
+                                return Json(treeData);
+                            }
+                            else
+                            {
+                                // Handle the request for child nodes
+                                var childNodes = data
+                                    .Where(node => node.iParentId == iParentId)
+                                    .Select(node => new
+                                    {
+                                        id = node.iId,
+                                        text = node.sName,
+                                        children = true,
+                                        bGroup = node.bGroup
+                                    });
+
+                                return Json(childNodes);
+                            }
+                        }
+                    }
+                    return Json(new object[] { });
+                }
+            }
+            catch (Exception ex)
+            {
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                l.CreateLog(GetType().Name + "\nMethod: " + actionName + "\n" + ex.ToString(), logpath);
+                return null;
+            }
+        }
 
 
-    }      
 
-       
+        [HttpGet]
+        //using this api updating node position when drag and drop occur & setProperty also setting 
+        public async Task<IActionResult> UpdateData(string sAPIName, int iParentId, string iId, int? iMenuId = 0, int? iStatus = 0)
+        {
+            string apiResponse = string.Empty;
+            try
+            {
+                var apiUrl = api + sAPIName;
+                if (iStatus != 0)
+                {
+                    apiUrl += "?iId=" + iId + "&iStatus=" + iStatus + "&iMenuId=" + iMenuId;
+                }
+                else
+                {
+                    apiUrl += "?iParentId=" + iParentId + "&iId=" + iId + "&iMenuId=" + iMenuId;
+                }
+
+
+
+                using (var httpClient = new HttpClient(_clientHandler))
+                {
+                    using (var response = await httpClient.GetAsync(apiUrl))
+                    {
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            apiResponse = await response.Content.ReadAsStringAsync();
+
+                            return Json(apiResponse);
+                        }
+                        else
+                        {
+                            apiResponse = await response.Content.ReadAsStringAsync();
+
+                            return Json(apiResponse);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                l.CreateLog(GetType().Name + "\nMathod:" + actionName + "\n" + ex.ToString(), logpath);
+                return null;
+            }
+        }
+        #endregion
+
+
+
+
+
+        #region Excel
+        public async Task<DataTable> ExportDatatable1(string sAPIName)
+        {
+            var licenseContext = configuration["EPPlus:ExcelPackage.LicenseContext"];
+            int uid = Convert.ToInt32(User.FindFirst("UserId").Value);
+            //  string apiUrl = api + sAPIName + "?iParentId=" + iParentId + "&iMaster=" + iMaster;
+            string apiUrl = $"{api}{sAPIName}?DisplayLength={0}&DisplayStart={0}&iUserId={uid}&iParentId{0}&Search={null}";
+            try
+            {
+
+                using (var httpClient = new HttpClient(_clientHandler))
+                {
+
+                    httpClient.Timeout = TimeSpan.FromSeconds(1000);
+                    using var response = await httpClient.GetAsync(apiUrl);
+
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    //var responseObject = JsonConvert.DeserializeObject<JObject>(apiResponse);
+                    //var resultDataJson = responseObject["ResultData"].ToString();
+                    dtMasterReports = (DataTable)JsonConvert.DeserializeObject(apiResponse, (typeof(DataTable)));
+
+                }
+                return dtMasterReports;
+            }
+            catch (Exception ex)
+            {
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                l.CreateLog(GetType().Name + "\nMethod: " + actionName + "\n" + ex.ToString(), logpath);
+                return dtMasterReports;
+            }
+        }
+
+
+        public Task<FileStreamResult> ExportExcelForMaster(string sAPIName)
+        {
+            Task<DataTable> task = ExportDatatable1(sAPIName);
+
+            return GenerateAllExcel(task.Result);
+
+        }
+
+        public async Task<FileStreamResult> GenerateAllExcel(DataTable dt)
+        {
+            string sTitle = "Master";
+            var contentType = "application/octet-stream";
+            var fileName = sTitle + DateTime.Now.ToString("dd-MM-yyyy_hh-mm-ss") + ".xlsx";
+            var stream = new MemoryStream();
+            //stream.WriteTimeout = 5000; // Set a write timeout of 5 seconds (5000 milliseconds).
+            //stream.ReadTimeout = 5000; // Set a read timeout of 5 seconds (5000 milliseconds).
+
+            try
+            {
+                ExcelRange cell;
+                using (var excelPackage = new ExcelPackage(stream))
+                {
+                    {
+                        excelPackage.Workbook.Properties.Author = "Sang";
+                        excelPackage.Workbook.Properties.Title = "Sang";
+                        ExcelWorksheet sheet = excelPackage.Workbook.Worksheets.Add("Excel");
+                        sheet.Name = sTitle;
+                        sheet.DefaultColWidth = 15;
+                        int l = dt.Columns.Count;
+                        // l = 0;
+                        sheet.Cells["A1"].LoadFromText(sTitle);
+                        sheet.Cells[1, 1, 1, l].Merge = true;
+                        cell = sheet.Cells[1, 1];
+                        cell.Style.Font.Bold = true;
+                        cell.Style.Font.Size = 20;
+                        cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Cells["A2"].LoadFromText("");
+                        sheet.Cells[2, 1, 2, l].Merge = true;
+                        cell = sheet.Cells[2, 1];
+                        cell.Style.Font.Size = 15;
+                        cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        // if (dt.Result.Rows.Count > 0)
+                        if (dt.Rows.Count > 0)
+                        {
+                            sheet.Cells["A3"].LoadFromDataTable(dt, true);
+                            sheet.Cells[3, 1, 3, l].Style.Font.Bold = true;
+                            sheet.Columns.AutoFit();
+                        }
+                        else
+                        {
+                            sheet.Cells["A3"].LoadFromText("No Data Found");//titl
+                        }
+
+                        excelPackage.Save();
+
+                    };
+                    stream.Position = 0;
+                    return File(stream, contentType, fileName);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                l.CreateLog(GetType().Name + "\nMethod: " + actionName + "\n" + ex.ToString(), logpath);
+                stream = new MemoryStream();
+                using (var excelPackage = new ExcelPackage(stream))
+                {
+                    excelPackage.Workbook.Properties.Author = "Sang";
+                    excelPackage.Workbook.Properties.Title = "Sang";
+                    var sheet = excelPackage.Workbook.Worksheets.Add("Excel");
+                    sheet.Name = "Excel Report";
+                    sheet.DefaultColWidth = 20;
+
+                    sheet.Cells["A1"].LoadFromText("No Data Found");
+                    sheet.Cells[1, 1].Merge = true;
+
+                    excelPackage.Save();
+                };
+                stream.Position = 0;
+                return File(stream, contentType, fileName);
+
+
+            }
+        }
+
+
+
+
+        #endregion
+
+    }
+
+
 }

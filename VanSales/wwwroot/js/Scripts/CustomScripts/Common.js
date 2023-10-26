@@ -9,7 +9,6 @@ $("#btnClose").click(function () {
     }
 });
 function openModal(modalId) {
-    //alert("openModal: " + modalId);
     $("#" + modalId).show();
 }
 function closeModal(modalId) {
@@ -17,14 +16,14 @@ function closeModal(modalId) {
 }
 
 
-function initializeDataTable(tableId, apiSource, sApiName, menuId) {
+function initializeDataTable(tableId, apiSource, sApiName, menuId, parentId) {
 
     return $('#' + tableId).DataTable({
         "sAjaxSource": apiSource,
         "fnServerParams": function (data) {
-            
+
             // Additional parameters can be added here if needed
-            data.push({ "name": "sAPIName", "value": sApiName }, { name: "iMaster", "value": menuId });
+            data.push({ "name": "sAPIName", "value": sApiName }, { name: "iMaster", "value": menuId }, { name: "iParent", "value": parentId });
 
         },
         "initComplete": function (settings, json) {
@@ -51,15 +50,24 @@ function initializeDataTable(tableId, apiSource, sApiName, menuId) {
                 'orderable': false,
                 'autoWidth': false,
                 'render': function (data, type, full, meta) {
-                    return '<input type="checkbox" name="id[]" value=""  '+ $('<div/>').text(data).html() + '">';
+                    return '<input type="checkbox" name="id[]" value=""  ' + $('<div/>').text(data).html() + '">';
                 }
+
             },
             {
+
                 "data": "sName",
                 "autoWidth": false,
                 'orderable': false,
                 "searchable": true,
-                "width": '30%'
+                "width": '30%',
+                "render": function (data, type, full, meta) {
+                    if (full.bGroup) {
+                        return '<strong>' + full.sName + '</strong>';
+                    } else {
+                        return data;
+                    }
+                }
             },
             {
                 "data": "sCode",
@@ -76,6 +84,9 @@ function initializeDataTable(tableId, apiSource, sApiName, menuId) {
                 "width": '30%'
             },
 
-        ]
+        ]//,
+        //"rowReorder": {
+        //    selector: 'tr' // Selector for the rows to be reordered
+        //}
     });
 }
