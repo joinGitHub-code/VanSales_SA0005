@@ -6,6 +6,8 @@
 
   <ItemGroup>
    
+    <PackageReference Include="EPPlus" Version="6.2.10" />
+   
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
     <PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
