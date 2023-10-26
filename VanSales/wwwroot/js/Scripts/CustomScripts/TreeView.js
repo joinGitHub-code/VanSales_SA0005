@@ -52,7 +52,7 @@ $(document).ready(function () {
 
 
     $('#treeViewdiv').on('select_node.jstree', function (e, data) {
-        console.log(data.node);
+       // console.log(data.node);
         var clickedNode = data.node;
         parentId = clickedNode.id;
         if (clickedNode) {
