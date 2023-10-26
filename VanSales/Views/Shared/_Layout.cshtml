@@ -1,0 +1,329 @@
+﻿@model VanSale.ViewModels.DetailsViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VanSales</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    
+
+    <link rel="icon" href="~/Sang_solutions/assets/images/favicon.png" type="image/x-icon">
+    @*<link rel="icon" href="~/images/Logo/favicon.png" type="image/x-icon" />*@
+    <!-- Favicon-->
+    <link rel="stylesheet" href="~/Sang_solutions/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Sang_solutions/assets/plugins/morrisjs/morris.css" />
+    <!-- Custom Css -->
+
+    <link rel="stylesheet" href="~/Sang_solutions/light/assets/css/main.css">
+    <link rel="stylesheet" href="~/Sang_solutions/light/assets/css/hm-style.css">
+    <link rel="stylesheet" href="~/Sang_solutions/light/assets/css/color_skins.css">
+    <link rel="stylesheet" href="~/Sang_solutions/assets/plugins/nestable/jquery-nestable.css" />
+    <!-- <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css"> -->
+    <link href="~/Sang_solutions/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <link href="~/Sang_solutions/assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Sang_solutions/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Sang_solutions/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Sang_solutions/light/assets/css/main.css">
+    <link rel="stylesheet" href="~/Sang_solutions/light/assets/css/color_skins.css">
+    <link rel="stylesheet" href="~/Sang_solutions/assets/plugins/sweetalert/sweetalert.css" />
+
+    <style>
+        .mandatory { /*//input:required  input .mandatory  */
+            /* border-color: DodgerBlue;*/
+            /* border-width: 3px;*/
+            border-left: 2px solid red;
+        }
+
+        .calendar_iccn {
+            position: absolute;
+            top: 38px;
+            right: 10px;
+            font-size: 17px;
+        }
+        /* ------------- for SlNo -+ -------------*/
+        .css-serial {
+            counter-reset: serial-number; /* Set the serial number counter to 0 */
+        }
+
+
+            /*.css-serial td:first-child:before {*/
+            .css-serial td:nth-of-type(2):after {
+                counter-increment: serial-number; /* Increment the serial number counter */
+                content: counter(serial-number); /* Display the counter */
+            }
+
+
+        .CellWithComment {
+            position: relative;
+        }
+
+        .CellComment {
+            display: none;
+            position: absolute;
+            z-index: 100;
+            border: 1px;
+            background-color: white;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            padding: 3px;
+            color: black;
+            top: 0px;
+            left: 15px;
+        }
+
+        .CellWithComment:hover span.CellComment {
+            display: block;
+        }
+
+        /* ------------- for SlNo -+ -------------*/
+        /* ------------- for menu -------------*/
+        .dropdown-menu2 {
+            display: none;
+        }
+
+        .dropdown-menu li:hover .dropdown-menu2 {
+            display: block;
+            position: absolute;
+            list-style: none;
+            margin-left: 196px;
+            margin-top: -38px;
+            box-shadow: 0px 10px 50px 0px rgb(0 0 0 / 20%);
+            background-color: #fff;
+            z-index: 1000;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            padding: 7px 18px;
+            line-height: 25px;
+            background-clip: padding-box;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 0.25rem;
+        }
+
+        .dropdown-menu2 li:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+        /*-------- for wrapping in Datatable --------*/
+        .text-wrap {
+            white-space: normal;
+        }
+
+        .width-80 {
+            width: 80px;
+        }
+
+        .width-90 {
+            width: 90px;
+        }
+
+
+        .width-200 {
+            width: 200px;
+        }
+        /*-------- End for wrapping in Datatable --------*/
+        /*-----------------------------------------------*/
+
+        /* ------------- End of for menu -------------*/
+
+
+        .selected {
+            /*  background-color: #A9D0F5;*/
+            background-color: #A9D0F5 !important;
+        }
+    </style>
+
+</head>
+<body class="theme-purple index2" style="overflow-x:hidden">
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img class="zmdi-hc-spin" src="~/Sang_solutions/assets/images/sang_logo.png" width="48" height="48" alt="Oreo"></div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <input type="hidden" id="hdn_menuids" class="form-control" name="hdn_menuids" value="@ViewBag.MID" />
+    <input type="hidden" id="hdn_SessionUIDs" class="form-control" name="hdn_SessionUIDs" value="@ViewBag.UID" />
+
+    <input type="hidden" id="hdn_sLogin" class="form-control" name="hdn_sLogin" value="@ViewBag.sLogin" />
+
+    @*<input type="hidden" id="hdn_Rptmenuids" class="form-control" name="hdn_Rptmenuids" value="@ViewBag.Mid"  />*@
+    <!-- Page Loader -->
+    @*<div class="page-loader-wrapper">
+    <div class="loader">
+    <div class="m-t-30"><img class="zmdi-hc-spin" src="~/Sang_solutions/assets/images/sang_logo.png" width="48" height="48" alt="Oreo"></div>
+    <p>Please wait...</p>
+    </div>
+    </div>*@
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <!-- Top Bar -->
+    <nav class="navbar p-l-5 p-r-5">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" class="bars"></a>
+                    <a class="navbar-brand"><img src="~/Sang_solutions/assets/images/sang_logo.png"><span class="m-l-10"></span></a>
+                </div>
+            </li>
+
+
+
+
+
+
+
+
+
+
+            <li class="dropdown" id="li4">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    Masters
+                    </div>
+                </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li id="li5"><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="5">Customer</a> </li>
+                    <li id="li6"><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="6">Warehouse</a> </li>
+                    <li id="li7"><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="7">Outlet</a> </li>
+                    <li id="li8"><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="8">Location</a> </li>
+                    <li id="li13"><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="13">Product</a> </li>
+                    <li id="li9"><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="9">Bank</a> </li>
+                    <li id="li14"><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="14">Company</a> </li>
+                    <li id="li10"><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="10">Unit</a> </li>
+
+                </ul>
+            </li>
+            <li class="dropdown" id="li2">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    Financials
+                    </div>
+                </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li id=""><a asp-controller="Master" asp-action="Masters" style="color: #000;" asp-route-id="5">Receipt</a> </li>
+
+                </ul>
+            </li>
+            <li class="dropdown" id="li3">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    Reports
+                    </div>
+                </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li id="li9"><a asp-controller="Reports" asp-action="Reports" style="color: #000;" asp-route-id="9">Customer</a> </li>
+                    <li id="li10"><a asp-controller="Reports" asp-action="Reports" style="color: #000;" asp-route-id="10">Outlet</a> </li>
+                </ul>
+            </li>
+
+
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    Settings
+                    </div>
+                </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li id="li9"><a asp-controller="Settings" asp-action="Settings" style="color: #000;" asp-route-id="1">User</a> </li>
+                    <li id="li10"><a asp-controller="Settings" asp-action="Settings" style="color: #000;" asp-route-id="2">Role</a> </li>
+                </ul>
+            </li>
+
+
+            <li class="float-right">
+                @if (!string.IsNullOrEmpty(Model.uName))
+                {
+                    <lable id="lblname" style="color:white"> @Model.uName </lable>
+                }
+                <a href="javascript:void(0);" class="js-right-sidebar" data-close="true">
+                    <i class="zmdi zmdi-settings"></i>
+                </a>
+
+                @*<a asp-controller="Attendance" asp-action="LogOut" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a>*@
+                <a onclick="LogOut()" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a>
+
+                <a class="navbar-brand"><img src="~/Sang_solutions/assets/images/RayLogo.jpg" width="50"><span class="m-l-10"></span></a>
+            </li>
+        </ul>
+    </nav>
+
+    @*<div class="container">*@
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+    @*</div>*@
+
+    @*<footer class="border-top footer text-muted">
+    <div class="container">*@
+    @*<bold>&copy; 2021 - SangSolutions</bold>*@
+
+    <div class="row clearfix sang_footer">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="body">
+                    <p>© @DateTime.Now.Year Designed & Developed By <a href="#" target="black"><b>Sang Solutions</b></a> </p>
+                    @*class="m-b-0"*@
+                </div>
+            </div>
+        </div>
+    </div>
+    @*</div>
+    </footer>*@
+
+
+    <div class="modal" id="modal-DeleteConfirmLogOut" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btnclosedeLogOut">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msgLogOut"></label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button id="btnyesLogOut" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">LogOut</button>
+                    <button id="btnnoLogOut" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+    <script src="~/Sang_solutions/light/assets/bundles/libscripts.bundle.js"></script>
+    <script src="~/Sang_solutions/light/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/sweetalert/sweetalert.min.js"></script>
+    @*<script src="~/Sang_solutions/light/assets/js/pages/ui/dialogs.js"></script>*@
+    @*<script src="~/Sang_solutions/light/assets/js/pages/ui/dia
+    .js"></script>*@
+    <script src="~/Sang_solutions/assets/plugins/momentjs/moment.js"></script>
+    <script src="~/Sang_solutions/light/assets/bundles/datatablescripts.bundle.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="~/Sang_solutions/light/assets/js/pages/forms/basic-form-elements.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/jquery-datatable/buttons/buttons.html5.min.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/jquery-datatable/buttons/buttons.print.min.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/editable-table/mindmup-editabletable.js"></script>
+    <script src="~/Sang_solutions/light/assets/js/pages/tables/editable-table.js"></script>
+    <script src="~/Sang_solutions/light/assets/bundles/mainscripts.bundle.js"></script>
+
+    <script src="~/js/Scripts/CustomScripts/alerts/alerts.js"></script>
+    <script src="~/js/Scripts/CustomScripts/alerts/vue-swal.js"></script>
+    <script src="~/js/Scripts/CustomScripts/Common.js" asp-append-version="true"></script>
+    <script src="~/js/Scripts/CustomScripts/Menu.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

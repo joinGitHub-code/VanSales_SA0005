@@ -1,0 +1,72 @@
+﻿@model VanSale.ViewModels.DetailsViewModel
+<div class="container-fluid">
+    <div class="row clearfix" style="margin-top: 10px;">
+        <div class="col-12">
+            <div class="card my_card">
+                <h5 class="card-header my_card_hd">
+                  
+
+
+                </h5>
+                <div id="collapse-example3" aria-labelledby="heading-example">
+                   
+                    <div class="card-body ptX0">
+                        <div class="row clearfix">
+
+                            <div class="table-responsive">
+                               
+                                <table align="center" class="table js-basic-example dataTable " id="masterSummaryTable">
+
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Name</th>
+                                            <th>Code</th>
+                                            <th>AltName</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Summarybody">
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="modal" id="MasterPopup" tabindex="1" role="dialog" style="position: absolute;">
+       
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div style="text-align-last: right;">
+                </div>
+               
+                <div class="modal-header" padding-top:"40px">
+                    <div class="col-md-6">
+                        <h4 class="title" id="largeModalLabel">@Model.title Details</h4>
+                        <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" id="btnClosePopup" style="min-height:8px;position: absolute; left: 480px;margin-top: -15px;width:20%">Close</button>
+                        <button type="button" class="btn btn-primary " id="btnPostPopup" style="min-height:8px;position: absolute;left: 580px;margin-top: -15px;width:20%">Save</button>
+                        <button type="button" class="btn btn-info" id="btnNewPopup" style="min-height:8px;position: absolute; left: 680px;margin-top: -15px;width:20%">New</button>
+                    </div>
+                </div>
+                <div id="PopUpsearch">
+                </div> 
+
+                <div class="modal-body modal-scroll-stl" id="modal-bodyPopUp">
+                   
+                        <partial name="_MasterForm" view-data="ViewData" />
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>

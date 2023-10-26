@@ -1,0 +1,338 @@
+<!doctype html>
+<html class="no-js " lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <title>Sang Solutions</title>
+    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <!-- Favicon-->
+    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/plugins/morrisjs/morris.css" />
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="../assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/hm-style.css">
+    <link rel="stylesheet" href="assets/css/color_skins.css">
+    <link rel="stylesheet" href="../assets/plugins/nestable/jquery-nestable.css" />
+
+
+</head>
+
+<body class="theme-purple index2">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img class="zmdi-hc-spin" src="../assets/images/sang_logo.png" width="48" height="48" alt="Oreo"></div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <!-- Top Bar -->
+    <nav class="navbar p-l-5 p-r-5">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" class="bars"></a>
+                    <a class="navbar-brand" href="index.html"><img src="../assets/images/sang_logo.png"><span class="m-l-10"></span></a>
+                </div>
+            </li>
+
+            <li class="dropdown "> <a href="index2.html">Dashboard
+                    </div>
+                </a>
+            </li>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">Home
+            </div>
+        </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li class="dropdown-submenu">
+                        <a class="test" style="color: #000;" href="#">Main Masters <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a style="color: #000;" href="custom_vendor.html">Custom Vendor</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">Financials
+            </div>
+        </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li> <a href="goods_reciept.html" style="color: #000;">Goods Reciept Note</a></li>
+                    <li> <a href="#" style="color: #000;">opening Stock</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">Settings
+            </div>
+        </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li> <a href="#" style="color: #000;">Configure Transaction</a> </li>
+                    <li><a href="#" style="color: #000;">Main Settings</a> </li>
+                </ul>
+            </li>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">Reports
+            </div>
+        </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li><a href="#" style="color: #000;">Register</a> </li>
+                    <li><a href="#" style="color: #000;">Stock</a> </li>
+                </ul>
+            </li>
+            <li class="hidden-sm-down" style="margin-left: 345px;">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <span class="input-group-addon"><i class="zmdi zmdi-search"></i></span>
+                </div>
+            </li>
+            <li class="dropdown" style="margin-left: 15px;"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
+                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+            </a>
+                <ul class="dropdown-menu pullDown">
+                    <li class="body">
+                        <ul class="menu list-unstyled">
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <div class="media">
+                                        <img class="media-object" src="../assets/images/sang_logo.png" width="60" alt="">
+                                        <div class="media-body">
+                                            <span class="name">Sang Solutions <span class="time">30min ago</span></span>
+                                            <span class="message">New login detected</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="footer"> <a href="javascript:void(0);">View All</a> </li>
+                </ul>
+            </li>
+
+            <li class="float-right">
+                <a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i
+                    class="zmdi zmdi-settings"></i></a>
+                <a href="login.html" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a>
+                <a class="navbar-brand" href="index.html"><img src="../assets/images/sang_logo.png" width="50"><span class="m-l-10"></span></a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Right Sidebar -->
+    <aside id="rightsidebar" class="right-sidebar">
+        <div class="tab-content">
+            <div class="tab-pane slideRight active" id="setting">
+                <div class="slim_scroll">
+                    <div class="card">
+                        <h6>Colors</h6>
+                        <ul class="choose-skin list-unstyled">
+                            <li data-theme="purple" class="active">
+                                <div class="purple"></div>
+                            </li>
+                            <li data-theme="blue">
+                                <div class="blue"></div>
+                            </li>
+                            <li data-theme="cyan">
+                                <div class="cyan"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card theme-light-dark">
+                        <h6>Sidebar</h6>
+                        <button class="t-light btn btn-default btn-simple btn-round btn-block"><a style="color: black;"
+                                href="left_goods_reciept.html">Vertical</a></button>
+                        <button class="t-light btn btn-default btn-simple btn-round btn-block"><a style="color: black;"
+                                href="goods_reciept.html">Horizontal</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    <section class="content mt-60" style="margin-top: 60px !important;">
+        <div class="block-header" style="padding-bottom: 0px;">
+            <div class="row" style="height: 45px;">
+                <div class="col-lg-6">
+                    <ul class="breadcrumb" style="display: inline-flex;">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> </a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Financials</a></li>
+                        <li class="breadcrumb-item active">Goods Reciept Note</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="abs" style="list-style: none; display: -webkit-box;">
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-plus"></i> <a style="color: inherit;" href="voucher_details.html">New</a>
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-edit"></i> Edit
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-delete"></i> Delete
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-shuffle"></i> Suspend
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-check"></i> Approve
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-close"></i> close
+                            </button></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-12">
+                    <div class="card my_card" style="margin-bottom: 0px !important;">
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="row clearfix">
+                                <div class="col-lg-12">
+                                    <div class="card" style="margin-bottom: 0px !important;">
+                                        <div class="body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>DocNo</th>
+                                                            <th>DocDate</th>
+                                                            <th>CreatedBy</th>
+                                                            <th>CreatedOn</th>
+                                                            <th>EditedBy</th>
+                                                            <th>EditedOn</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="gd_tab">
+                                                        <tr style="height: 6px;">
+                                                            <td>1</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Akshay</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Sang</td>
+                                                            <td>17-05-2021</td>
+                                                            <td>
+                                                                <p class="text-danger nxm">Pending</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Akshay</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Sang</td>
+                                                            <td>17-05-2021</td>
+                                                            <td>
+                                                                <p class="text-danger nxm">Pending</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Akshay</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Sang</td>
+                                                            <td>17-05-2021</td>
+                                                            <td>
+                                                                <p class="text-danger nxm">Pending</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Akshay</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Sang</td>
+                                                            <td>17-05-2021</td>
+                                                            <td>
+                                                                <p class="text-danger nxm">Pending</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Akshay</td>
+                                                            <td>29-07-2021</td>
+                                                            <td>Sang</td>
+                                                            <td>17-05-2021</td>
+                                                            <td>
+                                                                <p class="text-danger nxm">Pending</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix sang_footer">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="body">
+                            <p class="m-b-0">© 2021 Designed & Developed By <a href="#" target="black"><b>Sang Solutions</b></a> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jquery Core Js -->
+    <script src="assets/bundles/libscripts.bundle.js"></script>
+    <script src="assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="../assets/plugins/nestable/jquery.nestable.js"></script>
+    <script src="assets/bundles/mainscripts.bundle.js"></script>
+    <script src="assets/js/pages/ui/sortable-nestable.js"></script>
+    <script src="assets/bundles/mainscripts.bundle.js"></script>
+    <script src="assets/js/pages/tables/jquery-datatable.js"></script>
+    <script src="assets/bundles/datatablescripts.bundle.js"></script>
+
+    <script>
+        $(function() {
+            $('.knob').knob({
+                draw: function() {}
+            });
+        });
+        $(document).ready(function() {
+            "use strict";
+            $('.menu > ul > li:has( > ul)').addClass('menu-dropdown-icon');
+            $('.menu > ul > li > ul:not(:has(ul))').addClass('normal-sub');
+            $(".menu > ul > li").hover(function(e) {
+                if ($(window).width() > 943) {
+                    $(this).children("ul").stop(true, false).fadeToggle(150);
+                    e.preventDefault();
+                }
+            });
+            $(".menu > ul > li").click(function() {
+                if ($(window).width() <= 943) {
+                    $(this).children("ul").fadeToggle(150);
+                }
+            });
+            $(".h-bars").click(function(e) {
+                $(".menu > ul").toggleClass('show-on-mobile');
+                e.preventDefault();
+            });
+        });
+    </script>
+    <script>
+        $(".list_btn").on('click', function() {
+            $("#plist").toggleClass("open");
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,813 @@
+<!doctype html>
+<html class="no-js " lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <title>Sang Solutions</title>
+    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <!-- Favicon-->
+    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/plugins/morrisjs/morris.css" />
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/hm-style.css">
+    <link rel="stylesheet" href="assets/css/color_skins.css">
+    <link rel="stylesheet" href="../assets/plugins/nestable/jquery-nestable.css" />
+    <!-- <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css"> -->
+    <link href="../assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <link href="../assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/color_skins.css">
+    <link rel="stylesheet" href="../assets/plugins/sweetalert/sweetalert.css" />
+
+    <style>
+        .card-header .fa {
+            transition: .3s transform ease-in-out;
+        }
+        
+        .card-header .collapsed .fa {
+            transform: rotate(90deg);
+        }
+    </style>
+
+</head>
+
+<body class="theme-purple index2">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img class="zmdi-hc-spin" src="../assets/images/sang_logo.png" width="48" height="48" alt="Oreo"></div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <!-- Top Bar -->
+    <nav class="navbar p-l-5 p-r-5">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" class="bars"></a>
+                    <a class="navbar-brand" href="index.html"><img src="../assets/images/sang_logo.png"><span class="m-l-10"></span></a>
+                </div>
+            </li>
+
+            <li class="dropdown "> <a href="index2.html">Dashboard
+                    </div>
+                </a>
+            </li>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">Home
+            </div>
+        </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li class="dropdown-submenu">
+                        <a class="test" style="color: #000;" href="#">Main Masters <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a style="color: #000;" href="custom_vendor.html">Custom Vendor</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">Financials
+            </div>
+        </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li> <a href="goods_reciept.html" style="color: #000;">Goods Reciept Note</a></li>
+                    <li> <a href="#" style="color: #000;">opening Stock</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">Settings
+            </div>
+        </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li> <a href="#" style="color: #000;">Configure Transaction</a> </li>
+                    <li><a href="#" style="color: #000;">Main Settings</a> </li>
+                </ul>
+            </li>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">Reports
+            </div>
+        </a>
+                <ul class="dropdown-menu pullDown new_navs">
+                    <li><a href="#" style="color: #000;">Register</a> </li>
+                    <li><a href="#" style="color: #000;">Stock</a> </li>
+                </ul>
+            </li>
+            <li class="hidden-sm-down" style="margin-left: 345px;">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <span class="input-group-addon"><i class="zmdi zmdi-search"></i></span>
+                </div>
+            </li>
+            <li class="dropdown" style="margin-left: 15px;"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
+                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+            </a>
+                <ul class="dropdown-menu pullDown">
+                    <li class="body">
+                        <ul class="menu list-unstyled">
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <div class="media">
+                                        <img class="media-object" src="../assets/images/sang_logo.png" width="60" alt="">
+                                        <div class="media-body">
+                                            <span class="name">Sang Solutions <span class="time">30min ago</span></span>
+                                            <span class="message">New login detected</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="footer"> <a href="javascript:void(0);">View All</a> </li>
+                </ul>
+            </li>
+
+            <li class="float-right">
+                <a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i
+                    class="zmdi zmdi-settings"></i></a>
+                <a href="login.html" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a>
+                <a class="navbar-brand" href="index.html"><img src="../assets/images/sang_logo.png" width="50"><span class="m-l-10"></span></a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Right Sidebar -->
+    <aside id="rightsidebar" class="right-sidebar">
+        <div class="tab-content">
+            <div class="tab-pane slideRight active" id="setting">
+                <div class="slim_scroll">
+                    <div class="card">
+                        <h6>Colors</h6>
+                        <ul class="choose-skin list-unstyled">
+                            <li data-theme="purple" class="active">
+                                <div class="purple"></div>
+                            </li>
+                            <li data-theme="blue">
+                                <div class="blue"></div>
+                            </li>
+                            <li data-theme="cyan">
+                                <div class="cyan"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card theme-light-dark">
+                        <h6>Sidebar</h6>
+                        <button class="t-light btn btn-default btn-simple btn-round btn-block"><a style="color: black;"
+                                href="left_voucher_details.html">Vertical</a></button>
+                        <button class="t-light btn btn-default btn-simple btn-round btn-block"><a style="color: black;"
+                                href="voucher_details.html">Horizontal</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    <section class="content mt-60" style="margin-top: 60px !important;">
+        <div class="block-header" style="padding-bottom: 0px;">
+            <div class="row" style="height: 45px;">
+                <div class="col-lg-3">
+                    <h2>Voucher Details
+                    </h2>
+                </div>
+                <div class="col-lg-8 js-sweetalert">
+                    <ul class="abs" style="list-style: none; display: -webkit-box;">
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-plus"></i> New
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-save"></i> Save
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-arrow-left"></i> Previous
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-arrow-right"></i> Next
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm" data-type="confirm">
+                                <i class="zmdi zmdi-delete"></i> Delete
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-shuffle"></i> Suspend
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-print"></i> Print
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm" data-type="success">
+                                <i class="zmdi zmdi-check"></i> Approve
+                            </button></li>
+                        <li><button class="btn btn-primary btn-round btn-sm">
+                                <i class="zmdi zmdi-close"></i> close
+                            </button></li>
+                    </ul>
+                </div>
+                <div class="col-lg-1">
+                    <!-- <ul class="breadcrumb float-md-right">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> </a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Financials</a></li>
+                        <li class="breadcrumb-item active">Goods Reciept Note</li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-12">
+                    <div class="card my_card">
+                        <h5 class="card-header my_card_hd">
+                            <a data-toggle="collapse" href="#collapse-example" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                                <i class="fa zmdi zmdi-chevron-down"></i>
+                            </a>
+                        </h5>
+                        <div id="collapse-example" class="collapse show" aria-labelledby="heading-example">
+                            <div class="card-body ptX0">
+                                <div class="body p-0">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs ptX0" style="padding-left: 0px;padding-right: 0px;">
+                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Main</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile">Shipment Details</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages">Consignee</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#rdd">Reference Details</a></li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#atts">Attachments</a></li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane in active" id="home">
+                                            <div class="row clearfix my_gd">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Document No.</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Date</label>
+                                                        <input type="date" class="form-control datetimepicker mycz" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Vendor</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Jurisdiction</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Place Of Supply</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Declaration Type</label>
+                                                        <input type="date" class="form-control datetimepicker" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Declaration Date</label>
+                                                        <input type="date" class="form-control datetimepicker" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">DecNo</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Inco Terms</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Currency</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">ExchangeRate</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">ETA</label>
+                                                        <input type="date" class="form-control datetimepicker" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Warehouse</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Due Date</label>
+                                                        <input type="date" class="form-control datetimepicker" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Narration</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="profile">
+                                            <div class="row clearfix my_gd">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">ImpOrLoc</label>
+                                                        <select class="form-control show-tick">
+                                                            <option value="">-- ImpOrLoc --</option>
+                                                            <option value="10">Local</option>
+                                                            <option value="20">Imported</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Carrier Agent</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Carrier Ref</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Forwarding Agent</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Type Of Shipment</label>
+                                                        <select class="form-control show-tick">
+                                                            <option value="">-- None --</option>
+                                                            <option value="10">Air</option>
+                                                            <option value="20">Sea</option>
+                                                            <option value="20">Road</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Flight No</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Airway No</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Container No</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Port Of Loading</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Port Of DisCharge</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Packing Type</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Packing Weight</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Packing Quantity</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="messages">
+                                            <div class="row clearfix my_gd">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Consignee</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">End User</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Destination</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="rdd">
+                                            <div class="row clearfix my_gd">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">PO No</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Po Date</label>
+                                                        <input type="date" class="form-control datetimepicker mycz" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Delivery No</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Delivery Date</label>
+                                                        <input type="date" class="form-control datetimepicker mycz" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Invoice No</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Invoice Date</label>
+                                                        <input type="date" class="form-control datetimepicker mycz" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Forwarder Ref</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Forwarder Date</label>
+                                                        <input type="date" class="form-control datetimepicker mycz" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Forwarder value</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="atts">
+                                            <div class="row clearfix my_gd">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Document Type</label>
+                                                        <input type="file" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Ref No</label>
+                                                        <input type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="margin-top: -20px;">
+                <div class="col-12">
+                    <div class="card my_card">
+                        <h5 class="card-header my_card_hd">
+                            <a data-toggle="collapse" href="#collapse-example2" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                                <i class="fa zmdi zmdi-chevron-down"></i>
+                            </a>
+                        </h5>
+                        <div id="collapse-example2" class="collapse show" aria-labelledby="heading-example">
+                            <div class="card-body ptX0">
+                                <div class="row clearfix">
+                                    <div class="col-lg-12">
+                                        <div class="card" style="margin-bottom: 0px !important;">
+                                            <div class="body" style="padding-top: 0px;">
+                                                <div class="table-responsive">
+                                                    <table id="mainTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Item</th>
+                                                                <th>Description</th>
+                                                                <th>Unit</th>
+                                                                <th>Account2</th>
+                                                                <th>Qty</th>
+                                                                <th>AltQty</th>
+                                                                <th>Weight</th>
+                                                                <th>Batch</th>
+                                                                <th>SerialNo</th>
+                                                                <th>Rate</th>
+                                                                <th>Gross</th>
+                                                                <th>Frieght</th>
+                                                                <th>Vat%</th>
+                                                                <th>VatAmt</th>
+                                                                <th>Net</th>
+                                                                <th>Stock</th>
+                                                                <th>TaxCode</th>
+                                                                <th>HsCode</th>
+                                                                <th>HsCodeDet</th>
+                                                                <th>COO</th>
+                                                                <th>Remarks</th>
+                                                                <th>PackingType</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="gd_tab">
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>2</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>3</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>4</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>5</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>6</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                                <td>aa</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="margin-top: -20px;">
+                <div class="col-12">
+                    <div class="card my_card">
+                        <h5 class="card-header my_card_hd">
+                            <a data-toggle="collapse" href="#collapse-example3" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                                <i class="fa zmdi zmdi-chevron-down"></i>
+                            </a>
+                        </h5>
+                        <div id="collapse-example3" class="collapse show" aria-labelledby="heading-example">
+                            <div class="card-body ptX0">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix sang_footer">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="body">
+                            <p class="m-b-0">© 2021 Designed & Developed By <a href="#" target="black"><b>Sang Solutions</b></a> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/bundles/libscripts.bundle.js"></script>
+    <script src="assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="assets/js/pages/ui/dialogs.js"></script>
+    <script src="assets/bundles/datatablescripts.bundle.js"></script>
+    <script src="../assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/buttons/buttons.html5.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/buttons/buttons.print.min.js"></script>
+    <script src="../assets/plugins/editable-table/mindmup-editabletable.js"></script>
+    <script src="assets/js/pages/tables/editable-table.js"></script>
+    <script src="assets/bundles/mainscripts.bundle.js"></script>
+    <script>
+        $(function() {
+            $('.knob').knob({
+                draw: function() {}
+            });
+        });
+        $(document).ready(function() {
+            "use strict";
+            $('.menu > ul > li:has( > ul)').addClass('menu-dropdown-icon');
+            $('.menu > ul > li > ul:not(:has(ul))').addClass('normal-sub');
+            $(".menu > ul > li").hover(function(e) {
+                if ($(window).width() > 943) {
+                    $(this).children("ul").stop(true, false).fadeToggle(150);
+                    e.preventDefault();
+                }
+            });
+            $(".menu > ul > li").click(function() {
+                if ($(window).width() <= 943) {
+                    $(this).children("ul").fadeToggle(150);
+                }
+            });
+            $(".h-bars").click(function(e) {
+                $(".menu > ul").toggleClass('show-on-mobile');
+                e.preventDefault();
+            });
+        });
+    </script>
+    <script>
+        $(".list_btn").on('click', function() {
+            $("#plist").toggleClass("open");
+        });
+    </script>
+</body>
+
+</html>

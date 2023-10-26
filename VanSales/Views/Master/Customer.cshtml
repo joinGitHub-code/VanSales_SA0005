@@ -1,0 +1,369 @@
+﻿@model VanSale.ViewModels.DetailsViewModel
+
+<section class="content mt-60" style="margin-top: 60px !important;background-color:white">
+    @*<input type="hidden" id="api" class="form-control" name="iId" value="@ViewBag.api" />*@
+    <input type="hidden" id="hdn_SessionUID" value="@Model.uId" />
+    <input type="hidden" id="hdn_SessionUName" value="@Model.uName" />
+    <input type="hidden" id="hdn_MenuId" value="@Model.menuId" />
+    <input type="hidden" id="hdn_iId" value="0" />
+    <div class="block-header" style="padding-bottom: 0px; ">
+        <div class="row" style="height: 45px;">
+            <div class="col-lg-6">
+                <h2>
+                    Customer                  
+                    
+                </h2>
+            </div>
+            <div class="col-lg-6 js-sweetalert">
+                @*style="align-self:auto"*@ @*style="position: absolute; right: 0;*@
+                <ul class="abs" id="MenuBtns" style="list-style: none; display: -webkit-box; position: absolute; right: 19px;">
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnNew">
+                            <i class="zmdi zmdi-plus"></i> New
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnNewGroup">
+                            <i class="zmdi zmdi-plus"></i> Add Group
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnSummaryEdit">
+                            <i class="zmdi zmdi-edit"></i> Edit
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" data-type="confirm" id="btnSummaryDelete">
+                            <i class="zmdi zmdi-delete"></i> Delete
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm"  id="btnPrint">
+                            <i class="zmdi zmdi-print"></i> Print
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnClose">
+                            <i class="zmdi zmdi-close"></i> Close
+                        </button>
+                    </li>
+                </ul>
+            </div>
+           
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-12">
+                <div class="card my_card">
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix" style="margin-top: -20px;">
+            <div class="col-12">
+            </div>
+        </div>
+
+        <div class="row clearfix" style="margin-top: -20px;">
+            <div class="col-12">
+                <div class="card my_card">
+                    <h5 class="card-header my_card_hd">
+                       
+                    </h5>
+                    <div id="collapse-example3" aria-labelledby="heading-example">
+                        @*class="collapse show"*@
+                        <div class="card-body ptX0">
+                            <div class="row clearfix">
+                                <div class="table-responsive">                               
+                                    <table align="center" class="table js-basic-example dataTable " id="customerSummaryTable">                                        
+                                        <thead>
+                                            <tr>
+                                                <th></th>                                             
+                                                <th>Customer Name</th>
+                                                <th>Code</th>
+                                                <th>AltName</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="modal" id="GetMasterList" tabindex="-1" role="dialog">
+    @*id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">*@
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div style="text-align-last: right;">
+            </div>           
+            <div class="modal-header">
+                <div class="col-md-6">
+                    <h4 class="title" id="largeModalLabel">Customer Details</h4>
+                    <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" id="btnClosePopup" style="min-height:8px;position: absolute; left: 625px;margin-top: -15px;width:20%">Close</button>
+                    <button type="submit" class="btn btn-primary " id="btnPost" style="min-height:8px;position: absolute; left: 735px;margin-top: -15px;width:20%">Save</button>
+                    <button type="button" class="btn btn-info" id="btnNewPopup" style="min-height:8px;position: absolute; left: 850px;margin-top: -15px;width:20%">New</button>
+                </div>
+            </div>
+            <div id="PopUpsearch">
+            </div> 
+
+            <div class="modal-body modal-scroll-stl" id="modal-bodyPopUp">
+                @*style="overflow-y: scroll"*@
+                <div class="row clearfix my_gd">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text" id="txtname" class="mandatory form-control" maxlength="60" autocomplete="off" /> @*onblur="checkProductNameExists()"*@
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="">Code</label>
+                            <input type="text" id="txtcode" class="mandatory form-control" autocomplete="off" />
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="">AltName</label>
+                            <input type="text" id="txtaltname" class="  form-control" autocomplete="off"/> 
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="">TRN Number </label>
+                            <input class="form-control " type="text" id="sTrnnumber" oninput="this.value = this.value.slice(0,20)" />
+                           
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for=""><b>Type</b></label>
+                            <input class=" mandatory form-control" type="text" id="sType" placeholder="--Select--" onfocus="DataloadMaster('#sType','/Master/GetAutoComplete','GetCustomerType')" />
+                            <input type="hidden" id="sType-id" value="0" /> @*onchange="getFocusCode()"*@
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="">Credit Days</label>
+                            <input type="number" id="txtCreditdays" class="form-control" autocomplete="off" min="0" step="1" oninput="truncateInput(this)" />
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="">Credit Amount</label>
+                            <input type="number" id="txtCrediamount" class="form-control" min="0" step="0.01" autocomplete="off" value="0" />
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">Address</label>
+                           
+                            <textarea class="form-control" id="txtAddress" autocomplete="off" ></textarea>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group" id="mapContainer">
+                            <label for="">Lat-Lan</label>
+                            <input type="text" id="txtLatlan" class="  form-control" autocomplete="off" value=""  />
+
+                        </div>
+                        <div id="map" style="display: none;" class="mapSettings"></div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">City</label>
+
+                            <input type="text" class="form-control" id="txtCity" autocomplete="off">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">Country</label>
+
+                            <input type="text" class="form-control" id="txtCountry" autocomplete="off">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">PinNumber</label>
+
+                            <input type="text" class="form-control" id="txtPinnumber" oninput="this.value = this.value.replace(/[^0-8]/g, '')" autocomplete="off">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">MobileNumber</label>
+
+                            <input type="text" class="mandatory form-control" id="txtMobile" oninput="this.value = this.value.slice(0, 16)" autocomplete="off">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">PhoneNumber</label>
+
+                            <input type="text" class="form-control" id="txtPhone" oninput="this.value = this.value.slice(0, 16)" autocomplete="off">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">Fax</label>
+
+                            <input type="text" class="form-control" id="sFax" autocomplete="off">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">Email</label>
+
+                            <input type="text" class="mandatory form-control" id="sEmail" name="sEmail" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">Website</label>
+
+                            <input type="text" class="form-control" id="sWebsite" autocomplete="off">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">ContactPerson Number</label>
+
+                            <input type="text" class="form-control" id="sContactperson" oninput="this.value = this.value.slice(0, 16)" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3" hidden>
+                        <div class="form-group">
+
+                            <span></span>
+                            <br />
+                            <label class="form-check-label" for="bGroup">Group</label>
+
+                            <div class="form-check form-check-inline">
+                                <input type="hidden" class="form-check-input ml-2" id="bGroup" value="false">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for=""><b>Parent</b></label>
+                            <input class="form-control" type="text" id="sParent" placeholder="--Select--" onfocus="DataloadMaster('#sParent','/Master/GetAutoComplete','GetParentCustomer')" />
+                            <input type="hidden" id="sParent-id" value="0" /> 
+
+                        </div>
+                    </div>
+
+
+                </div>
+                
+
+            </div> @*modal-body*@
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+@*Not Used*@
+
+
+
+
+
+
+
+<div class="modal" id="modal-DeleteConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+    <div class="modal-dialog modal-lg" style="width:300px;">
+        <div class="modal-content" style="width:300px;">
+            <div class="modal-body">
+                <button Type="button" class="close align-content-end" id="btnclosede">&times;</button>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="msg"></label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+                <button id="btnyes" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                @*<button type="button" id="btnyes1" class="btn btn-default letter" style="background-color:darkgray;color:white">Yes</button>
+                <button type="button" id="btnyes2" class="btn btn-default letter" style="background-color:darkgray;color:white">Yes</button>*@
+                <button id="btnno" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+            </div>
+        </div>
+       
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal" id="select_modal" role="dialog" style="padding-top:200px;padding-left:200px">
+    <div class="modal-dialog modal-lg" style="width:300px;">
+        <div class="modal-content" style="width:300px;">
+            <div class="modal-body">
+                <button Type="button" class="close align-content-end" id="btncls">&times;</button>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="msg"></label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+                <button id="btnok" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">OK</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section Scripts{
+  @*  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>*@
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdeWOHJWdj2SZy9nlVVxwFumnUHzeS92A=&v=weekly"
+            defer></script>
+  
+    <script src="~/Sang_solutions/light/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/nestable/jquery.nestable.js"></script>
+    <script src="~/Sang_solutions/light/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="~/Sang_solutions/light/assets/js/pages/ui/sortable-nestable.js"></script>
+   @* <script src="~/Sang_solutions/light/assets/js/pages/tables/jquery-datatable.js"></script>*@
+    <script src="~/Sang_solutions/light/assets/bundles/datatablescripts.bundle.js"></script>
+    <link href="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="~/js/Scripts/CustomScripts/AutoComplete.js" asp-append-version="true"></script>
+    <script src="~/js/Scripts/CustomScripts/masters/Customer.js" asp-append-version="true"></script>
+
+   
+}

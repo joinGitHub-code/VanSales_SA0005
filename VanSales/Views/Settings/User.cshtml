@@ -1,0 +1,393 @@
+﻿<style>
+
+    /*.table-responsive {
+                height: 80vh;*/ /* Just for the demo          */
+    /*overflow-y: auto;*/ /* Trigger vertical scroll    */
+    /*overflow-x: hidden;*/ /* Hide the horizontal scroll */
+    /*}*/
+    #GetMasterList .modal-body {
+        /* top: 350px;*/
+        height: auto;
+        /* width:100%;*/
+        /*overflow-y: auto;*/
+    }
+
+
+    #GetMasterList .modal-dialog {
+        top: 40px;
+        max-width: 800px; /* New width for default modal */
+    }
+
+    #GetMasterList .modal {
+        top: 350px;
+    }
+
+    #ViewsUserType {
+        border-radius: 25px;
+        border: 1px solid #D3D3D3;
+        /*  padding: 20px;*/
+        /*  width: 200px;
+            height: 150px;*/
+    }
+
+
+    /*input[type=text], textarea {*/
+    /*border-style: inset;*/
+    /*border-width: 2px;
+        }*/
+</style>
+
+
+
+
+<section class="content mt-60" style="margin-top: 60px !important;">
+    <div class="block-header" style="padding-bottom: 0px;">
+        <div class="row" style="height: 45px;">
+            <div class="col-lg-3">
+                <h2>
+                    User
+                    <input type="hidden" id="api" class="form-control" name="iId" value="@ViewBag.api" />
+                    <input type="hidden" id="hdn_SessionUID" value="@ViewBag.UID" />
+                    <input type="hidden" id="hdn_SessionUName" value="@ViewBag.Uname" />
+
+
+                    <input type="hidden" id="hdn_iId" />
+
+                </h2>
+            </div>
+            <div class="col-lg-8 js-sweetalert">
+                @*style="align-self:auto"*@ @*style="position: absolute; right: 0;*@
+                <ul class="abs" style="list-style: none; display: -webkit-box; position: absolute; right: 19px;">
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnNew">
+                            <i class="zmdi zmdi-plus"></i> New
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnSummaryEdit">
+                            <i class="zmdi zmdi-save"></i> Edit
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" data-type="confirm" id="btnSummaryDelete">
+                            <i class="zmdi zmdi-delete"></i> Delete
+                        </button>
+                    </li>
+
+
+                    @*
+                    <li>
+                    <button class="btn btn-primary btn-round btn-sm">
+                    <i class="zmdi zmdi-shuffle"></i> Suspend
+                    </button>
+                    </li>*@
+                    @*
+                    <li>
+                    <button class="btn btn-primary btn-round btn-sm">
+                    <i class="zmdi zmdi-print"></i> Print
+                    </button>
+                    </li>*@
+                    @*
+                    <li>
+                    <button class="btn btn-primary btn-round btn-sm" data-type="success">
+                    <i class="zmdi zmdi-check"></i> Approve
+                    </button>
+                    </li>*@
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnUserMyExcel">
+                            <i class="zmdi zmdi-print"></i> Excel
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnClose">
+                            <i class="zmdi zmdi-close"></i> Close
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-1">
+                <!-- <ul class="breadcrumb float-md-right">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> </a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Financials</a></li>
+                    <li class="breadcrumb-item active">Goods Reciept Note</li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-12">
+                <div class="card my_card">
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix" style="margin-top: -20px;">
+            <div class="col-12">
+            </div>
+        </div>
+
+
+        @*//new*@
+        @*<div class="row clearfix">
+        <div class="col-12">
+        <div class="card my_card" style="margin-bottom: 0px !important;">
+        <div class="card-body" style="padding: 0px;">
+        <div class="row clearfix">
+        <div class="col-lg-12">
+        <div class="card" style="margin-bottom: 0px !important;">
+        <div class="body">
+        *@
+        <div class="row clearfix" style="margin-top: -20px;">
+            <div class="col-12">
+                <div class="card my_card">
+                    <h5 class="card-header my_card_hd">
+                        @*<a data-toggle="collapse" href="#collapse-example3" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                        <i class="fa zmdi zmdi-chevron-down"></i>
+                        </a>*@
+                    </h5>
+                    <div id="collapse-example3" aria-labelledby="heading-example">
+                        @*class="collapse show"*@
+                        <div class="card-body ptX0">
+                            <div class="row clearfix">
+                                <div class="table-responsive">
+                                    @*class="table-responsive"*@
+                                    <table align="center" class="table js-basic-example dataTable" id="userSummaryTable">
+                                        @*style="height:100px;max-width:2000px"*@
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>UserName</th>
+                                                <th>LoginName</th>
+                                                <th>PhoneNo</th>
+                                                <th>Email</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="binddataUserSummary">
+                                            @*class="gd_tab"*@
+
+                                            @*
+                                            <tr>
+                                            <td>2</td>
+                                            <td>29-07-2021</td>
+                                            <td>Akshay</td>
+                                            <td>29-07-2021</td>
+                                            <td>Sang</td>
+                                            <td>17-05-2021</td>
+                                            <td>
+                                            <p class="text-danger">Pending</p>
+                                            </td>
+                                            </tr>*@
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="modal" id="GetMasterList" tabindex="-1" role="dialog">
+    @*id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">*@
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @*style="width:max-content"*@
+            <div class="modal-header">
+                <div class="col-md-6">
+                    <h4 class="title" id="largeModalLabel">User Details</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" id="btnClosePopup" style="min-height:8px;position: absolute; left: 525px;margin-top: -15px;width:10%">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnPost" style="min-height:8px;position: absolute; left: 618px;margin-top: -15px;width:10%">Save</button>
+                    <button type="button" class="btn btn-info" id="btnNewPopup" style="min-height:8px;position: absolute; left: 710px;margin-top: -15px;width:10%">New</button>
+                </div>
+                @*<h6 class="modal-title" id="exampleModalLabel" style="position:absolute;left:350px;text-decoration:underline;"> USER DETAILS</h6> <br />*@
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>*@
+            </div>
+            <div id="PopUpsearch">
+            </div> @*class="form-group"*@
+
+            <div class="modal-body modal-scroll-stl" id="modal-bodyPopUp">
+                @*style="overflow-y: scroll"*@
+
+                <div class="row clearfix my_gd">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">UserName</label>
+                            <input type="text" id="txtuname" class="form-control" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">LoginName</label>
+                            <input type="text" id="txtlogname" class="form-control" autocomplete="off" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Password</label>
+                            <input type="password" id="txtpswd" class="form-control" autocomplete="off" />
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Mobile</label>
+                            <input type="text" id="txtmobile" class="form-control" autocomplete="off" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="text" id="txtemail" class="form-control" autocomplete="off" />
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for=""><b> Role </b> </label>
+                            <!--<input class="ui-autocomplete-input form-control" id="FocusBanksSelect" type="text" onfocus="DataloadForParameter('#FocusBanksSelect', '/Ducon/GetAutoCompleteParameters')" role="textbox" aria-autocomplete="list" aria-haspopup="true">--> @*autocomplete="off"*@
+
+                            @*<input class="letter form-control inpt-stl-stl" type="text" id="FocusBanksSelect" onfocus="DataloadMaster('#FocusBanksSelect', '/Ducon/GetAutoCompleteParameters')" />*@
+                            <input class="letter form-control inpt-stl-stl" type="text" id="Role" onfocus="DataloadMaster('#Role','/Attendance/GetAutoComplete','GetRoles')" />
+                            <input type="hidden" id="Role-id" />
+                            <input type="hidden" id="Role-code" />
+                            @*<input type="text" class="form-control" />*@
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl">  User Type    </label>
+                            @* overflow:auto;display:block;border:1px solid;*@    @*class="col-lg-6"*@
+                            <div id="ViewsUserType" style=" width:100%;height:80px; max-height:500px;min-height:40px;">
+                                <ul class="col-lg-12" style="margin-top:7px" id="ul1"><li id="li__1" style="height:12px;list-style-type:none;display:block;padding:0px;"><input style="height: 12px; width:15px;" type="checkbox" id="Web" value="WebUser" /><label style="font-weight:400;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,sans-serif;font-size: 13px;padding-left:5px;">Web User</label></li></ul>
+                                <ul class="col-lg-12" style="margin-top:7px" id="ul2"><li id="li__2" style="height:12px;list-style-type:none;display:block;padding:0px;"><input style="height: 12px; width:15px;" type="checkbox" id="Mob" value="MobUser" /><label style="font-weight:400;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,sans-serif;font-size: 13px;padding-left:5px;">Mobile User</label></li></ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="letter lbl-date-stl"><b>SalesMen</b></label>
+                            <input class="letter form-control inpt-stl-stl" type="text" id="SalesMen" onfocus="DataloadMaster('#EmployeeSelect','/Attendance/GetAutoComplete','GetAllEmployee')" />
+                            <input type="hidden" id="SalesMen-id" value="0" />
+                        </div>
+                    </div>
+
+                    @*<div class="row clearfix my_gd">
+                    *@
+
+
+                </div>
+
+            </div>
+            @*
+            </div>*@
+
+
+        </div> @*modal-body*@
+        @*<div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" id="btnClosePopup" style="min-height:8px">Close</button>
+        <button type="button" class="btn btn-primary" id="btnPostOutlet">Save</button>
+        <button type="button" class="btn btn-info" id="btnNewPopup">New</button>
+        </div>*@
+    </div>
+</div>
+
+
+
+<div class="modal" id="modal-DeleteConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+    <div class="modal-dialog modal-lg" style="width:300px;">
+        <div class="modal-content" style="width:300px;">
+            <div class="modal-body">
+                <button Type="button" class="close align-content-end" id="btnclosede">&times;</button>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="msg"></label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+                <button id="btnyes" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                @*<button type="button" id="btnyes1" class="btn btn-default letter" style="background-color:darkgray;color:white">Yes</button>
+                <button type="button" id="btnyes2" class="btn btn-default letter" style="background-color:darkgray;color:white">Yes</button>*@
+                <button id="btnno" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal" id="select_modal" role="dialog" style="padding-top:200px;padding-left:200px">
+    <div class="modal-dialog modal-lg" style="width:300px;">
+        <div class="modal-content" style="width:300px;">
+            <div class="modal-body">
+                <button Type="button" class="close align-content-end" id="btncls">&times;</button>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="msg"></label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+                <button id="btnok" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">OK</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section Scripts{
+
+    <!--<script src="~/Sang_solutions/light/assets/js/pages/tables/jquery-datatable.js"></script>-->
+    @*
+        <script src="~/Sang_solutions/light/assets/bundles/libscripts.bundle.js"></script>*@
+    <!--<script src="~/Sang_solutions/light/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/nestable/jquery.nestable.js"></script>
+    <script src="~/Sang_solutions/light/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="~/Sang_solutions/light/assets/js/pages/ui/sortable-nestable.js"></script>
+    <script src="~/Sang_solutions/light/assets/js/pages/tables/jquery-datatable.js"></script>
+    <script src="~/Sang_solutions/light/assets/bundles/datatablescripts.bundle.js"></script>
+
+    <link href="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>-->
+
+    <script src="~/Sang_solutions/light/assets/js/pages/tables/jquery-datatable.js"></script>
+    @*<script src="~/Sang_solutions/light/assets/bundles/libscripts.bundle.js"></script>*@
+    <script src="~/Sang_solutions/light/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/Sang_solutions/assets/plugins/nestable/jquery.nestable.js"></script>
+    <script src="~/Sang_solutions/light/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="~/Sang_solutions/light/assets/js/pages/ui/sortable-nestable.js"></script>
+    <script src="~/Sang_solutions/light/assets/js/pages/tables/jquery-datatable.js"></script>
+    <script src="~/Sang_solutions/light/assets/bundles/datatablescripts.bundle.js"></script>
+
+
+    <link href="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
+    <script src="~/js/Scripts/CustomScripts/UserSummary.js"></script>
+    <script src="~/js/scripts/customscripts/mainmaster.js"></script>
+    <script src="~/js/Scripts/CustomScripts/AutoComplete.js"></script>
+}
