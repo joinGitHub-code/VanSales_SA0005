@@ -1,5 +1,4 @@
-using DinkToPdf.Contracts;
-using DinkToPdf;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,10 +34,10 @@ namespace VanSales
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-            //Dinktopdf
-            var context = new CustomAssemblyLoadContext();
-context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
-            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+//            //Dinktopdf
+//            var context = new CustomAssemblyLoadContext();
+//context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
+//            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddControllers();
             services.AddControllersWithViews();
             object value = services.AddControllers().AddNewtonsoftJson(options =>
