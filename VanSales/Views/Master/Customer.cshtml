@@ -5,6 +5,7 @@
     <input type="hidden" id="hdn_SessionUID" value="@Model.uId" />
     <input type="hidden" id="hdn_SessionUName" value="@Model.uName" />
     <input type="hidden" id="hdn_MenuId" value="@Model.menuId" />
+    <input type="hidden" id="hdn_title" value="@Model.title" />
     <input type="hidden" id="hdn_iId" value="0" />
     <div class="block-header" style="padding-bottom: 0px; ">
         <div class="row" style="height: 45px;">
@@ -16,10 +17,15 @@
             </div>
             <div class="col-lg-6 js-sweetalert">
                 @*style="align-self:auto"*@ @*style="position: absolute; right: 0;*@
-                <ul class="abs" id="MenuBtns" style="list-style: none; display: -webkit-box; position: absolute; right: 19px;">
+                <ul class="abs" id="MenuBtns" style="list-style: none; display: -webkit-box; position: absolute; right: 193px;">
                     <li>
                         <button class="btn btn-primary btn-round btn-sm" id="btnNew">
                             <i class="zmdi zmdi-plus"></i> New
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnGroup">
+                            <i class="zmdi zmdi-plus"></i>  Group
                         </button>
                     </li>
                     <li>
@@ -28,11 +34,20 @@
                         </button>
                     </li>
                     <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnExport">
+                            <i class="zmdi zmdi-print"></i> Export
+                        </button>
+                    </li>
+                    <li>
                         <button class="btn btn-primary btn-round btn-sm" id="btnSummaryEdit">
                             <i class="zmdi zmdi-edit"></i> Edit
                         </button>
                     </li>
-
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnProperty">
+                            <i class="zmdi zmdi-view-list"></i>Property
+                        </button>
+                    </li>
                     <li>
                         <button class="btn btn-primary btn-round btn-sm" data-type="confirm" id="btnSummaryDelete">
                             <i class="zmdi zmdi-delete"></i> Delete
@@ -67,11 +82,16 @@
         </div>
 
         <div class="row clearfix" style="margin-top: -20px;">
-            <div class="col-12">
+            <div class="col-3">
+                <div class="card my_card" id="treeViewdiv">
+                    hi
+                </div>
+            </div>
+            <div class="col-9">
                 <div class="card my_card">
-                    <h5 class="card-header my_card_hd">
-                       
-                    </h5>
+                    <h6 class="card-header my_card_hd" id="treeUrl">
+                        <a id="pathLink" href="#" target="_blank" style="color:black"></a>
+                    </h6>
                     <div id="collapse-example3" aria-labelledby="heading-example">
                         @*class="collapse show"*@
                         <div class="card-body ptX0">
@@ -353,7 +373,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdeWOHJWdj2SZy9nlVVxwFumnUHzeS92A=&v=weekly"
             defer></script>
-  
+ 
     <script src="~/Sang_solutions/light/assets/bundles/vendorscripts.bundle.js"></script>
     <script src="~/Sang_solutions/assets/plugins/nestable/jquery.nestable.js"></script>
     <script src="~/Sang_solutions/light/assets/bundles/mainscripts.bundle.js"></script>
@@ -364,6 +384,7 @@
     <script src="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="~/js/Scripts/CustomScripts/AutoComplete.js" asp-append-version="true"></script>
     <script src="~/js/Scripts/CustomScripts/masters/Customer.js" asp-append-version="true"></script>
+    <script src="~/js/Scripts/CustomScripts/TreeView.js"></script>
 
    
 }
