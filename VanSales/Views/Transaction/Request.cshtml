@@ -1,0 +1,987 @@
+﻿@model VanSale.ViewModels.DetailsViewModel
+<style>
+    .bold {
+        font-weight: bold;
+    }
+
+    #tUnAllocated {
+        border-radius: 35px;
+        border: 1px solid;
+        /*  padding: 20px;*/
+        width: 200px;
+        height: 25px;
+    }
+    /* #MenuBtns {
+            position: fixed;
+        }*/
+
+
+
+</style>
+
+
+<section class="content mt-60" style="margin-top: 60px !important;">
+    <input type="hidden" id="hdn_SessionUID" value="@Model.uId" />
+    <input type="hidden" id="hdn_SessionUName" value="@Model.uName" />
+    <input type="hidden" id="hdn_MenuId" value="@Model.menuId" />   
+    <input type="hidden" id="hdn_iVoucherType" value="@Model.menuId" />
+    <input type="hidden" id="hdn_iVoucherName" value="@Model.title" />
+   
+    <div class="block-header" style="padding-bottom: 0px;">
+        <div class="row" style="height: 45px;">
+            <div class="col-lg-6">
+                <h2 style="color:black">
+                    @Model.title
+                </h2>
+            </div>
+
+            <div class="col-lg-6 js-sweetalert">
+                <ul class="abs" id="MenuBtns" style="list-style: none; float: right; display: -webkit-box;">
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnNew">
+                            <i class="zmdi zmdi-plus"></i> New
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnEdit">
+                            <i class="zmdi zmdi-edit"></i> View
+                        </button>
+                    </li>
+                    <li style="display:none">
+                        <button class="btn btn-primary btn-round btn-sm" id="btnPost">
+                            <i class="zmdi zmdi-save"></i> Save
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnPostPrint">
+                            <i class="zmdi zmdi-save"></i> Print
+                        </button>
+                    </li>
+                    <li style="display:none">
+                        <button class="btn btn-primary btn-round btn-sm" id="btnPrint">
+                            <i class="zmdi zmdi-print"></i> Print
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnDelete" style="display:none">
+                            <i class="zmdi zmdi-delete"></i> Delete
+                        </button>
+                    </li>
+                    <li style="display:none">
+                        <button class="btn btn-primary btn-round btn-sm" id="btnPrev">
+                            <i class="zmdi zmdi-arrow-left"></i> Prev
+                        </button>
+                    </li>
+                    <li style="display:none">
+                        <button class="btn btn-primary btn-round btn-sm" id="btnNext">
+                            <i class="zmdi zmdi-arrow-right"></i> Next
+                        </button>
+                    </li>
+                    @* <li>
+                    <button class="btn btn-primary btn-round btn-sm" id="btnPrint">
+                    <i class="zmdi zmdi-print"></i> Print
+                    </button>
+                    </li>*@
+                    @*
+                    <li>
+                    <button class="btn btn-primary btn-round btn-sm" onclick="delete_all()">
+                    <i class="zmdi zmdi-delete"></i>Delete All
+                    </button>
+                    </li>*@
+
+                    <li>
+                        <button class="btn btn-primary btn-round btn-sm" id="btnClose">
+                            <i class="zmdi zmdi-close"></i> Close
+                        </button>
+                    </li>
+                    @*<li class="dropdown">
+                    <a href="javascript:void(0);" class="btn btn-primary btn-round btn-sm dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="zmdi zmdi-more"></i> More
+                    </a>
+                    <ul class="dropdown-menu my_mnx" style="padding: 0px;">
+
+                    <li style="padding-right: 45px">
+                    <button class="btn btn-primary btn-round btn-sm" id="btnDeleteAll">
+
+                    Delete All
+                    </button>
+
+                    </li>
+                    </ul>
+                    </li>*@
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="Summary" style="display:block">
+        <partial name="_SummaryRequestOrderPartial" view-data="ViewData" />
+    </div>
+    <div id="Transaction" style="display:none">
+        <partial name="_TransactionRequestOrderPartial" view-data="ViewData" />
+    </div>
+
+    @*BillWiseReference*@
+    <div class="modal" id="GetMasterListfQtyBatch" tabindex="-1" role="dialog" style="top: 95px">
+        @*id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">*@
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                @*style="width:max-content"*@
+                <div class="modal-header">
+                    <div class="col-md-6">
+                        <h4 class="title" id="largeModalLabel">Outstanding Bills </h4>
+                    </div>
+                    @*<h6 class="modal-title" id="exampleModalLabel">Select the Items</h6>*@
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>*@
+                </div>
+                <div id="PopUpsearch">
+                    <div class="row">                
+                                            
+                        
+                    </div> @*class="form-group"*@
+                </div>
+                <div class="modal-body modal-scroll-stl" id="modal-bodyPopUp">
+                    <div class="row" style="margin-left: 10px;">
+                        <div class="col-sm-7" style="padding:0px;margin-top:20px">
+                            <div class="col-sm-5" style="border: 1px solid #ccc;padding:0px;margin-top:-30px">
+                                <div class="col-sm-12" style="padding:0px;">
+                                    <div class="col-sm-12" style="border: 1px solid #ccc;background-color: #E3E3E3; ">
+                                        <label class="FlabeL">New Reference</label>
+                                    </div>
+                                    <div class="col-sm-12" style="font-weight: 500; color: black; padding: 0px; padding-left: 5px; padding-right: 5px ">
+                                        <input type="text" id="tUnAllocated" value="0" autocomplete="off" class="col-xs-6" style="width: 100%; text-align: right;" onblur="checkUnAllocated()" /> @*col-xs-6*@
+                                        <input type="hidden" id="hdn_iRefRowID" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            @*btn-info waves-effect*@
+                            <button type="button" class="btn btn-primary btn-round btn-sm" style="margin-top: 30px; position: absolute; right: 135px;" id="btnLoadReferencePopup">Ok</button>
+                            <button type="button" class="btn btn-primary btn-round btn-sm" style="margin-top: 30px; position: absolute; right: 204px;" onclick="LoadReferenceFIFO()" id="btnLoadFIFO">FIFO</button>
+                            <button type="button" class="btn btn-primary btn-round btn-sm" style="margin-top: 30px; position: absolute; right: 290px;" data-dismiss="modal" id="btnPickAmount" @*style="min-height:8px"*@>PickAmount</button>
+                            <button type="button" class="btn btn-primary btn-round btn-sm" style="margin-top: 30px; position: absolute; right: 45px;" data-dismiss="modal" id="btnClosePopup" @*style="min-height:8px"*@>Close</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-12" id="Viewsdata" style="overflow:auto; width:100%;max-height:250px;">
+                        @*max-height:450px;*@
+                        @*style="overflow:auto; width:1040px;max-height:450px;text-align: -webkit-center"*@
+                        @*class="table table-bordered letter "*@
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="tblReturn" style="border: 1px solid; width: 100%; overflow-y: hidden; overflow-x: auto">
+                            @*max-height:600px;*@
+                            <thead style="line-height:7px" id="bindheader">
+                                <tr>
+                                    @*<th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;" rowspan="2">  <input style="height: 12px; width:12px;" type="checkbox" id="selectall" value="sId" /></th>*@
+                                    @*<th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;" >Batch</th>
+                                    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Exp.Date</th>
+
+                                    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;width:80%;">Avail.Qty</th>
+
+                                    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;width:80%;">Req.Qty</th>*@
+
+                                    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Reference</th>
+                                    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Due-Date</th>
+                                    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Bill Amount</th>
+                                    @*<th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Currency</th>*@
+                                    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Amount Adjusted</th>
+
+
+
+                                </tr>
+                                <tr></tr>
+                            </thead>
+                            <tbody id="binddata"></tbody>
+                            @*style="line-height:25px;text-align:center;overflow-x:hidden;overflow-y:auto;height:50px;max-height:200px;min-height:100px;"*@
+                        </table>
+                    </div>
+                    <ul class="nav nav-tabs ptX0" style="padding-bottom: 0px;">
+                        <li class="nav-item"><a class="nav-link">Amount To Adjust: <span id="StBatchQty"> </span>  </a> </li>
+                        <li class="nav-item"><a class="nav-link">Amount Adjusted: <span id="StBatchAlloc_Qty"> </span> </a> </li>
+                        <li class="nav-item"><a class="nav-link">To be Adjusted : <span id="StBatchBalQty"> </span> </a> </li>
+                    </ul>
+                    <!--<div class="col-lg-12" id="ViewsProddata" style="overflow:auto; width:100%;max-height:450px;text-align: -webkit-center">
+                    <table class="table table-bordered letter" id="tblProdBody" style="border:1px solid;width:100%;max-height:600px;overflow-y:hidden;overflow-x:auto">
+                        <thead style="line-height:7px">
+                            <tr>
+
+                                <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;" rowspan="2">  <input style="height: 12px; width:12px;" type="checkbox" id="selectall" value="sId" /></th>
+                                <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;" rowspan="2">Product</th>
+                                <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;" rowspan="2">Quantity</th>-->
+                    @*<th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;" rowspan="2">Date</th>*@
+
+                    <!--</tr>
+                                <tr></tr>
+                            </thead>
+                            <tbody id="bindProddata" style="line-height:25px;text-align:center;overflow-x:hidden;overflow-y:auto;height:50px;max-height:200px;min-height:100px;"></tbody>
+                        </table>
+                    </div>-->
+
+
+                </div>
+                <div class="modal-footer">
+                    @*<div class="row">*@
+                    <!--<div class="col-sm-7" style="padding-left:30px;margin-top:20px">
+
+                    <div class="row clearfix my_gd">-->
+                    @*<div class="col-sm-4">*@
+                    <!--<label for="">T.Amount</label>-->
+                    @*onblur="batchFreeQtyCheck()"*@
+                    @*</div>*@
+                    @*<div class="col-sm-4">
+                    <label for="">Allocated</label>*@
+                    <input type="hidden" id="tBatchQty" />
+                    <input type="hidden" id="tBatchAlloc_Qty" />
+                    @*</div>
+                    <div class="col-sm-4">
+                    <label for="">Balance</label>*@
+                    <input type="hidden" id="tBatchBalQty" />
+                    @*<input type="hidden" id="hdnDoc_iUnAllocatedAmt" />*@
+                    <!--</div>
+                        </div>
+                    </div>-->
+                    @*<div class="row clearfix">*@
+                    @*<div class="col-lg-12">*@
+                    @*<div class="card">
+                    <div class="body">*@
+
+
+                    @*<button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" id="btnClosePopup" style="min-height:8px">Close</button>*@
+                    @*<button type="button" class="btn btn-primary" id="btnLoadPopup">Load</button>*@
+                    @*</div>
+                    </div>*@
+
+                    @*</div>*@
+                    @*</div>*@
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*DeleteAll - Btn Summary (...More)*@
+    <div class="modal" id="modal-DeleteAllBtnConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btncloseDeleteAllBtn">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msgDeleteAllBtn"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnyesDeleteAllBtn" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                    <button id="btnnoDeleteAllBtn" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-ClearScreenConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btncloseClearscreen">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msgClearscreen"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnClearscreenyes" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                    <button id="btnClearscreenno" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @*Attachment Delete*@
+    <div class="modal" id="modal-DeleteAttachmentConfirm" role="dialog" style=" padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btncloseattach">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msg"></label>
+                            <button id="btnattachyes" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                            <button id="btnattachno" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal" id="modal-DeleteSummaryConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btnclosesummaryde">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msg"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnsummaryyes" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                    <button id="btnsummaryno" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @*Body part Delete- btndeletebody*@
+    <div class="modal" id="modal-DeleteConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btnclosede">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msg"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnyes" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                    <button id="btnno" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-DeleteLineConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btncloseline">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msgRowDel"></label>
+                            <input type="hidden" id="delete_id" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnyesline" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                    <button id="btnnoline" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-DeleteBatchLineConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btnclosebatchline">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msgBatchLineDel"></label>
+                            <input type="hidden" id="hdn_batchLineId" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnyesbatchline" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                    <button id="btnnobatchline" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--<div class="modal" id="GetBillWiseReference" tabindex="-1" role="dialog" style="top: 90px">-->
+    @*style="top: -136px"*@
+    <!--<div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="height:500px; ">
+            <div class="modal-header">
+                <div class="col-md-6">
+                    <h4 class="title" id="largeModalLabel">Bill Wise Adjustment </h4>
+                </div>
+                <div class="col-md-6" style="text-align: center;">-->
+    @*<button type="button" class="btn btn-info waves-effect btn-round btn-sm" style="margin-top: 5px; position: absolute; right: 175px;" onclick="LoadFIFO()" id="btnLoadFIFO">FIFO</button>
+    <button type="button" class="btn btn-primary btn-round btn-sm" style="margin-top: 5px; position: absolute; right: 100px;" id="btnLoadPopup">Load</button>
+    <button type="button" class="btn  btn-danger btn-round btn-sm" style="margin-top: 5px; position: absolute; right: 15px;" data-dismiss="modal" id="btnClosePopup">Close</button>*@
+    <!--</div>
+    </div>
+
+    <div id="PopUpsearch">
+    </div>
+
+    <div class="modal-body modal-scroll-stl" id="modal-bodyPopUp" style="overflow-y: scroll; max-height: 500px;">
+        <div class="row" style="margin-left: 10px;">
+            <div class="col-sm-7" style="padding:0px;margin-top:20px">
+                <!--<div class="col-sm-12" style="padding:0px;">
+                <label for="">Party Name  </label>-->
+    <!--@*<input type="text" id="tPartyName" class="form-control" disabled />*@
+                @*onblur="batchFreeQtyCheck()"*@-->
+    <!--<!--</div>-->
+    <!--@*
+        </div>*@
+                @*<div class="row">
+    *@
+                @*style="margin-left: 10px;"*@
+    <!--<div class="col-md-12" style="padding:0px;">
+        <label for="">UnAllocated</label>
+        <input type="text" id="tUnAllocated" autocomplete="off" class="col-xs-6" style="width: 55%; text-align: right;" onblur="checkUnAllocated()" />-->
+                @*col-xs-6*@
+                @*onblur="batchFreeQtyCheck()"*@
+    <!--</div>
+    <div class="col-md-12" style="padding:0px;">
+        <label class="Flabel">Total Amount Adjusted:</label>
+        <label id="lRefAdjAmt" class="Flabel">0.00</label>-->
+                @*<label for="">Balance Amount to be adjusted</label>
+    <input type="text" id="lRefBalAmt" class=" col-xs-6" style="width: 55%; text-align: right; " />*@ @*id="tBatchQty"*@
+                @*onblur="batchFreeQtyCheck()"*@
+    <!--</div>-->
+                @*label here*@
+                @*<div class="col-sm-6"><label id="errLblBalAmtCheck" class="label-danger" style="color:orangered"></label></div>*@
+    <!--</div>-->
+                @*<div class="row">
+    <div class="col-sm-4">
+    <label for="">T.Amount</label>
+    <input type="text" id="tVoucherAmt" class="form-control" disabled />
+    </div>
+    <div class="col-sm-4">
+    <label for="">T.AdjAmount</label>
+    <input type="text" id="tRefAdjAmt" class="form-control" disabled />
+    </div>
+    <div class="col-sm-4">
+    <label for="">BalanceAmount</label>
+    <input type="text" id="tRefBalQty" class="form-control" disabled />
+    </div>
+    </div>*@
+
+    <!--<button type="button" class="btn btn-info waves-effect btn-round btn-sm" style="margin-top: -15px; position: absolute; right: 35px;" onclick="LoadFIFOBillWiseRef()" id="btnLoadFIFO">FIFO</button>-->
+                @*<button type="button" class="btn btn-primary btn-round btn-sm" style="margin-top: -15px; position: absolute; right: 100px;" id="btnLoadPopup">Load</button>*@
+                @*<button type="button" class="btn  btn-danger btn-round btn-sm" style="margin-top: -15px; position: absolute; right: 85px;" data-dismiss="modal" id="btnCloseBillWiseRefPopup">Close</button>*@
+
+
+    <!--<div class="col-sm-5" style="border: 1px solid #ccc;padding:0px;margin-top:20px">
+        <div class="col-sm-12" style="padding:0px;">
+
+            <div class="col-sm-12" style="border: 1px solid #ccc;background-color: #E3E3E3; ">
+
+                <label class="FlabeL">Amount To Be Adjusted</label>
+            </div>
+
+            <div class="col-sm-12" style="font-weight: 500; color: black; padding: 0px; padding-left: 5px; padding-right: 5px ">
+                <label class="Flabel">Total Transaction :</label>
+                <label id="lVoucherAmt">0.00</label>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div id="brdAdjBrd" class="col-sm-12" style="padding:0px;padding-left:0px;left:430px">
+
+
+        <div class="col-sm-6">-->
+                @*style="padding:0px;color:black;padding-top:5px"*@
+    <!--<label class="Flabel">Balance Amount :</label>
+                <label id="lBalAmount" class="Flabel">0.00</label>
+            </div>
+
+
+
+
+        </div>
+    </div>-->
+                @*<div class="row">
+
+    <div class="col-6"><label id="errLblBalAmtCheck" class="label-danger" style="color:orangered"></label></div>
+    </div>*@
+
+    <!--<div class="col-lg-12" id="Viewsdata" style="overflow:auto; width:100%;max-height:250px;">
+
+        <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="tblBillWiseReference" style="border: 1px solid; width: 100%; max-height: 600px; overflow-y: hidden; overflow-x: auto">
+
+            <thead style="line-height:7px" id="bindheaderBillWiseReference">
+                <tr>-->
+                @*
+    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;" rowspan="2">  <input style="height: 12px; width:12px;" type="checkbox" id="selectall" value="sId" /></th>*@
+                @*<th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">DocNo</th>
+    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Date</th>
+    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Amount</th>
+    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Currency</th>
+    <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Adj.Amount</th>*@
+
+    <!--<th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Reference</th>
+                                <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Due-Date</th>
+                                <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Bill Amount</th>
+                                <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Currency</th>
+                                <th style="text-align:center;background-color:#113b69;color:white;border-bottom-color:#113b69;vertical-align: middle;">Amount Adjusted</th>
+
+
+                            </tr>
+                            <tr></tr>
+                        </thead>
+                        <tbody id="binddataBillWiseReference"></tbody>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>-->
+                @*<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" id="btnClosePopup" style="min-height:8px">Close</button>
+    <button type="button" class="btn btn-primary" id="btnLoadPopup">Load</button>
+    </div>*@
+                @*</div>*@
+
+
+                @*Print Popup*@
+    <div id="TransPrintModal" class="modal md success in" role="dialog">
+                    @*style="display: block;"*@
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Print</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div id="printloader" class="d-none" style="position:absolute;">
+                                    @*<img src="/Content/Images/LoadingGif.gif">*@
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><label>Layout</label></div>
+                                    @* <div class="col-5"><select class="form-control" id="PrintLayout" onblur="onBlurPrintLayout(event)"><option value="1">LayOut1</option><option value="2">LayOut2</option></select></div>*@
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="LayoutSelect" onfocus="DataloadMaster_dropdown('#LayoutSelect',@ViewBag.iVoucherType)" />
+                            <input type="hidden" id="LayoutSelect-id">
+                            <input type="hidden" id="LayoutSelect-apiname">
+                            <input type="hidden" id="LayoutSelect-rdlname">
+                        </div>
+                    </div>
+
+                    <div id="divPDF">
+
+
+                        <div id="printerDiv">
+
+
+                            <iframe style="position: absolute; top: -1000px;" id="frmPDF"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info waves-effect btn-round btn-sm" id="btnPrintPreview" onclick="onClickPrintPreview(event)">Preview</button>
+                    <button type="button" class="btn btn-primary btn-round btn-sm" id="btnPrint" onclick="onClickPrint(event)">Print</button>
+                    <button type="button" class="btn  btn-danger btn-round btn-sm" data-dismiss="modal" onclick="closePrintPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="TransPrintPreviewModal" class="modal md success" role="dialog">
+        <div class="modal-dialog modal-xl" style="min-width:100%;">
+            <div class="modal-content" style=" min-height:100vh; margin:0;top:0;left:0;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Print</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-danger btn-round btn-sm" data-dismiss="modal" onclick="closePrintPreviewPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="modal" id="GetPrintPopUp" tabindex="-1" role="dialog" style="top: -136px">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style=" margin-top:200px; ">
+                <div class="modal-header">
+                    <div class="col-md-6">
+                        <h4 class="title" id="largeModalVoucherLabel">Voucher Print</h4>
+                    </div>
+                            @*<div class="col-md-6" style="text-align: center;">
+            <button type="button" class="btn btn-info waves-effect btn-round btn-sm" id="btnFifo">FIFO</button>
+            <button type="button" class="btn btn-primary btn-round btn-sm" id="btnLoad">Load</button>
+            <button type="button" class="btn btn-secondary btn-danger btn-round btn-sm" data-dismiss="modal" id="btnClosePopup" style="min-height:8px">Cancel</button>
+
+        </div>*@
+    <!--</div>
+    <div id="PopUpsearch">
+    </div>
+
+    <div class="modal-body modal-scroll-stl" id="modal-bodyPopUp" style="overflow-y: scroll; max-height: 300px;">
+        <h5 class="card-header my_card_hd" id="headercollapse_inputVar">
+            <a data-toggle="collapse" href="#collapse-exampleGrid" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                <i class="fa zmdi zmdi-chevron-down"></i>
+            </a>
+        </h5>
+        <div id="collapse-exampleGrid" class="collapse show" aria-labelledby="heading-example">
+            <div class="col-lg-12" id="ViewsShowDetails" style="overflow:auto; width:100%;max-height:150px;">
+
+                <table class="table table-bordered letter" id="tblShowDetails" style="border:1px solid;width:100%;max-height:600px;overflow-y:hidden;overflow-x:auto">
+                    <thead style="line-height:7px">
+                        <tr>
+
+                            <th rowspan="2">Layout</th>
+                            <th rowspan="2"><select><option></option> <option></option></select></th>
+                                                    @*<th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Credit Account</th>
+        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Amount</th>*@
+
+    <!--</tr>
+                </thead>
+                <tbody id="bindShowDetails">
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>-->
+                                                    @*FooterDetails*@
+                                                    @*<h5 class="card-header my_card_hd" id="headercollapse_footer">
+    <a data-toggle="collapse" href="#collapse-exampleFooter" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+    <i class="fa zmdi zmdi-chevron-down"></i>
+    </a>
+    </h5>*@
+                                                    @*<div id="collapse-exampleFooter" class="collapse show" aria-labelledby="heading-example">
+    <div class="col-lg-12" id="ViewsFooterDetails" style="overflow:auto; width:100%;max-height:450px;">
+    <table class="table table-bordered letter" id="tblFooterDetails" style="border:1px solid;width:100%;max-height:600px;overflow-y:hidden;overflow-x:auto">
+    <thead style="line-height:7px">
+    <tr>
+
+    <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Footer Field</th>
+    <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Debit Account</th>
+    <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Credit Account</th>
+    <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Amount</th>
+
+    </tr>
+
+    </thead>
+    <tbody id="bindFooterDetails">
+    </tbody>
+
+    </table>
+    </div>
+
+    </div>*@
+
+    <!--</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-round btn-sm" id="loadSerial" onclick="">Print</button>
+                    <button type="button" class="btn btn-secondary btn-danger btn-round btn-sm" data-dismiss="modal" onclick="closePrintPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
+                                                    @*PostToLedger Confirmation in FooterDetails Popup*@
+    <div class="modal" id="modal-PostToLedgerConfirm" role="dialog" style="padding-top:200px;padding-left:200px">
+        <div class="modal-dialog modal-lg" style="width:300px;">
+            <div class="modal-content" style="width:300px;">
+                <div class="modal-body">
+                    <button Type="button" class="close align-content-end" id="btnclosePostToLedger">&times;</button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="msgPostToLedger"></label>
+                            <input type="hidden" id="hdn_PostToLedger_id" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnyesPostToLedger" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">Yes</button>
+                    <button id="btnnoPostToLedger" class="btn btn-primary btn-round btn-sm" style="background-color:darkgray;color:white">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    @*PostLedgerEnabled-ShowDetails Popup*@
+    <div class="modal" id="GetShowDetailsList" tabindex="-1" role="dialog" style="top: -136px">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style=" margin-top:200px; ">
+                <div class="modal-header">
+                    <div class="col-md-6">
+                        <h4 class="title" id="largeModalLabel">Footer Details</h4>
+                    </div>
+                                                                    @*<div class="col-md-6" style="text-align: center;">
+                    <button type="button" class="btn btn-info waves-effect btn-round btn-sm" id="btnFifo">FIFO</button>
+                    <button type="button" class="btn btn-primary btn-round btn-sm" id="btnLoad">Load</button>
+                    <button type="button" class="btn btn-secondary btn-danger btn-round btn-sm" data-dismiss="modal" id="btnClosePopup" style="min-height:8px">Cancel</button>
+
+                    </div>*@
+                </div>
+                <div id="PopUpsearch">
+                </div>
+
+                <div class="modal-body modal-scroll-stl" id="modal-bodyPopUp" style="overflow-y: scroll; max-height: 300px;">
+                    <h5 class="card-header my_card_hd" id="headercollapse_inputVar">
+                        <a data-toggle="collapse" href="#collapse-exampleGrid" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                            <i class="fa zmdi zmdi-chevron-down"></i>
+                        </a>
+                    </h5>
+                    <div id="collapse-exampleGrid" class="collapse show" aria-labelledby="heading-example">
+                        <div class="col-lg-12" id="ViewsShowDetails" style="overflow:auto; width:100%;max-height:450px;">
+                            <table class="table table-bordered letter" id="tblShowDetails" style="border:1px solid;width:100%;max-height:600px;overflow-y:hidden;overflow-x:auto">
+                                <thead style="line-height:7px">
+                                    <tr>
+
+                                        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Field</th>
+                                        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Debit Account</th>
+                                        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Credit Account</th>
+                                        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Amount</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="bindShowDetails">
+                                </tbody>
+                                                                                @* style="line-height:25px;text-align:center;overflow-x:hidden;overflow-y:auto;height:50px;max-height:200px;min-height:100px;"*@
+                            </table>
+                        </div>
+
+                    </div>
+                                                                    @*FooterDetails*@
+                    <h5 class="card-header my_card_hd" id="headercollapse_footer">
+                        <a data-toggle="collapse" href="#collapse-exampleFooter" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                            <i class="fa zmdi zmdi-chevron-down"></i>
+                        </a>
+                    </h5>
+                    <div id="collapse-exampleFooter" class="collapse show" aria-labelledby="heading-example">
+                        <div class="col-lg-12" id="ViewsFooterDetails" style="overflow:auto; width:100%;max-height:450px;">
+                            <table class="table table-bordered letter" id="tblFooterDetails" style="border:1px solid;width:100%;max-height:600px;overflow-y:hidden;overflow-x:auto">
+                                <thead style="line-height:7px">
+                                    <tr>
+
+                                        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Footer Field</th>
+                                        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Debit Account</th>
+                                        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Credit Account</th>
+                                        <th style="text-align: center; background-color: #6572b8; color: white; border-bottom-color: #6572b8; vertical-align: middle; " rowspan="2">Amount</th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody id="bindFooterDetails">
+                                </tbody>
+                                                                                @*style="line-height:25px;text-align:center;overflow-x:hidden;overflow-y:auto;height:50px;max-height:200px;min-height:100px;"*@
+                            </table>
+                        </div>
+                                                                        @*<div class="card-body ptX0">
+                        *@
+                        <!--<div class="row clearfix" >
+                        <div class="col-sm-3" style="position: relative; left: 60px;">
+                            <div class="form-group">
+                                VAT Advance  <input type="text" style="width:250px;" class="form-control" placeholder="VAT Advance" id="t_vatadvance">-->
+                                                                        @*style="position: relative; left: 30px;"*@
+                        <!--</div>
+                        </div>
+                        <div class="col-sm-3" style="position: relative; left: 200px;">
+                            <div class="form-group">
+                                Round Off <input type="text" style="width:250px; " class="form-control" placeholder="Round Off" id="t_Roundoff" />-->
+                                                                        @*style="position: relative; left: 100px;"*@
+
+                        <!--</div>
+                            </div>
+                        </div>-->
+                                                                        @*
+                        </div>*@
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-round btn-sm" id="loadSerial" onclick="postToLedgerConfirmation()">PostToLedger</button>
+                    <button type="button" class="btn btn-secondary btn-danger btn-round btn-sm" data-dismiss="modal" onclick="closeShowDetailsPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                                                    @*Bifurcation*@
+    <div class="modal" id="InputVariablePopUp" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="headBifurcation"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <div id="transBifloader" style="">
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-xs-12 col-sm-7 col-md-3" style="">
+                            <label class="Flabel" style="" onclick="">Currency</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2" style="">
+                            <input type="text" id="iInputCurrency" onfocus="DataloadMaster('#iInputCurrency',-1,13,@ViewBag.UID)" class="ntextbox form-control" onblur="blurCurrency(event)" style="width:200px;" />
+                                                                            @*<input type="hidden" id="iInputCurrencyval" class="ntextbox form-control" />*@
+                            <input type="hidden" id="iInputCurrency-id" class="ntextbox form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12 col-sm-7 col-md-3" style="">
+                            <label class="Flabel" style="" onclick="">ExchangeRate</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4" style="">
+                            <input type="number" id="fInputExchangeRate" class="ntextbox form-control" style="width:200px;" onkeypress="return isNumberKey(event)" maxlen=10 onfocus="getInvrow_column(event,-1)" onblur="getBaseAmount()" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12 col-sm-7 col-md-3" style="">
+                            <label class="Flabel" style="" onclick="">Amount</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4" style="">
+                            <input type="number" id="inputAmount" class="ntextbox form-control" style="width:200px;" onkeypress="return isNumberKey(event)" maxlen=10 onfocus="getInvrow_column(event,-1)" onblur="getBaseAmount()" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-xs-12 col-sm-6 col-md-3" style="">
+                            <label class="Flabel" style="" onclick="">Trans Amount</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2" style="">
+                            <input type="number" disabled id="inputTransAmount" class="ntextbox form-control" style="width:200px;" onkeypress="return isNumberKey(event)" maxlen=10 onfocus="getInvrow_column(event,-1)" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-xs-12 col-sm-6 col-md-3" style="">
+                            <label class="Flabel" style="" onclick="">Base Amount</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2" style="">
+                            <input type="number" disabled id="inputBaseAmount" class="ntextbox form-control" style="width:200px;" onkeypress="return isNumberKey(event)" maxlen=10 onfocus="getInvrow_column(event,-1)" />
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-round btn-sm" id="loadSerial" onclick="loadInputVarVal()">Load</button>
+                    <button type="button" class="btn btn-default btn-round btn-sm" data-dismiss="modal" onclick="closeBifurcationPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+                                                    @* Serial Number Popup *@
+    <div class="modal" id="SerialNoSettPopUp" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Serial Number Generation</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label for="rowQty">Quantity</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" autocomplete="off" disabled onkeypress='return isNumberKey(event)' maxlen=8 id="rowQty" class="form-control bodyText show" style="max-height: 10px;border-color: inherit;min-height: 30px;">
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="rowQtyStart">StartLimit</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" onkeypress='return isNumberKey(event)' maxlen=8 id="rowQtyStart" class="form-control bodyText show" style="max-height: 10px;border-color: inherit;min-height: 30px;" autocomplete="off">
+                        </div>
+                        <a class="btn btn-info waves-effect btn-round btn-sm" href="#" id="btnSerialAllocate" onclick="AllocateToTable()"><i class="fa fa-submit">Allocate</i></a> @*class="btn btn-default"*@
+                                                                        @*<button type="button" class="btn btn-info waves-effect btn-round btn-sm" style="margin-top: 25px; position: absolute; right: 185px;" onclick="LoadFIFO()" id="btnLoadFIFO">FIFO</button>*@
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-3 float-right" style="height: 200px;min-width: 140px; max-width: 180px;overflow-y: auto;overflow-x: hidden;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="SerialNoAllocate"></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                                                                    @*<div class="col-sm-3">
+                    <button type="button" class="btn btn-primary btn-round btn-sm" id="loadSerial" onclick="loadSerial()">Load</button>
+                    <button type="button" class="btn  btn-danger btn-round btn-sm" data-dismiss="modal">Close</button>
+                    </div>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-round btn-sm" id="loadSerial" onclick="loadSerialPopUp()">Load</button>
+                    <button type="button" class="btn  btn-danger btn-round btn-sm" data-dismiss="modal" onclick="closeSerialPopUp()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+                                                   
+</section>
+
+
+
+
+
+@section Scripts{
+
+    <link href="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Content/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>  
+
+    <script src="~/js/Scripts/CustomScripts/Transaction/Request_Order.js" asp-append-version="true"></script>
+    <script src="~/js/Scripts/CustomScripts/PrintForAllVouchers.js" asp-append-version="true"></script>
+    <script src="~/js/Scripts/CustomScripts/AutoComplete.js" asp-append-version="true"></script>
+    }

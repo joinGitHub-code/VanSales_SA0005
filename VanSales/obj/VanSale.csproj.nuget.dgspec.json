@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\SG Projects\\VanSales New\\VanSales\\VanSales\\VanSale.csproj": {}
+    "F:\\PROJECTS\\VANSALES_SANG\\From@lia\\NEW\\VanSaleVNew\\VanSales\\VanSale.csproj": {}
   },
   "projects": {
-    "C:\\SG Projects\\VanSales New\\VanSales\\VanSales\\VanSale.csproj": {
+    "F:\\PROJECTS\\VANSALES_SANG\\From@lia\\NEW\\VanSaleVNew\\VanSales\\VanSale.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\SG Projects\\VanSales New\\VanSales\\VanSales\\VanSale.csproj",
+        "projectUniqueName": "F:\\PROJECTS\\VANSALES_SANG\\From@lia\\NEW\\VanSaleVNew\\VanSales\\VanSale.csproj",
         "projectName": "VanSale",
-        "projectPath": "C:\\SG Projects\\VanSales New\\VanSales\\VanSales\\VanSale.csproj",
-        "packagesPath": "C:\\Users\\windows10\\.nuget\\packages\\",
-        "outputPath": "C:\\SG Projects\\VanSales New\\VanSales\\VanSales\\obj\\",
+        "projectPath": "F:\\PROJECTS\\VANSALES_SANG\\From@lia\\NEW\\VanSaleVNew\\VanSales\\VanSale.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "F:\\PROJECTS\\VANSALES_SANG\\From@lia\\NEW\\VanSaleVNew\\VanSales\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\windows10\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,8 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -82,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
