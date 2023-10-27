@@ -4,7 +4,13 @@ var type = 0;
 var mainTableList = [];
 var rowId = "";
 var table;
-
+var parentId = 0;
+const tableId = 'customerSummaryTable';
+const menuId = $('#hdn_MenuId').val();
+var singleClickTimer;
+var doubleClickDelay = 200;
+var isDoubleClick = false; // Flag to track double-click
+var initializeTable;
 $('#btnPrint').click(function () {
     var iid = $('#hdn_iId').val();
     $.ajax({
@@ -127,15 +133,24 @@ $('#btnPost').click(function () {
     }
 });
 
-
-$("#btnNew,#btnNewGroup").click(function () {
+$('#btnNew,#btnNewGroup,#btnGroup').click(function () {
     clearFields();
-    if (this.id == 'btnNewGroup') {
+    if (this.id === 'btnNewGroup') {
         $('#bGroup').val(1);
     }
-    openModal('GetMasterList');
+    if (this.id === 'btnGroup') {
+        if (mainTableList.length > 0) {
+            $('#bGroup').val(1);
+            isGroup = 1;
+        } else {
+            runError("Please Select a Checkbox");
+            return;
+        }
+    }
 
-})
+    openModal('GetMasterList');
+});
+
 $("#btnClosePopup, #btnNewPopup").on("click", function () {
     if (this.id === "btnClosePopup") {
       closeModal("GetMasterList");
@@ -150,10 +165,10 @@ function clearFields() {
     $('#txtCity,#txtCountry,#txtPinnumber,#txtMobile,#txtPhone,#sFax,#sWebsite,#sEmail,#sContactperson,#sParent').val("");
 }
 
-$('#customerSummaryTable').on('draw.dt', function () {
+$('#' + tableId).on('draw.dt', function () {
     mainTableList = [];
 })
-$("#customerSummaryTable").on('change', 'input[type=checkbox]', function (event) {
+$("#" + tableId).on('change', 'input[type=checkbox]', function (event) {
     var $row = $(this).closest('tr');
     var data = table.row($row).data();
 
@@ -280,7 +295,7 @@ $("#btnyes").click(function () {
                 const sMessageDescription = data.MessageDescription;
                 if (sResultData > "0") {
                     runsuccess1(sMessageDescription);
-                    $('#customerSummaryTable input[type="checkbox"]').prop('checked', false);
+                    $('#' + tableId+'input[type="checkbox"]').prop('checked', false);
                 }
                 else if (sResultData==="0") {
                     // Handle failure case
@@ -295,24 +310,27 @@ $("#btnyes").click(function () {
 });
 $("#btnno").click(function () {
     $("#modal-DeleteConfirm").hide();
-    $('#customerSummaryTable input[type="checkbox"]').prop('checked', false);
+    $('#' + tableId+'input[type="checkbox"]').prop('checked', false);
     mainTableList = [];
 });
 
 $("#btnclosede").click(function () {
     $("#modal-DeleteConfirm").hide();
-    $('#customerSummaryTable input[type="checkbox"]').prop('checked', false);
+    $('#'+tableId +'input[type="checkbox"]').prop('checked', false);
     mainTableList = [];
 
 });
-$(document).on('dblclick', '#customerSummaryTable tbody tr', function () {
+$(document).on('dblclick', '#' + tableId + ' tbody tr', function () {
+    isDoubleClick = true; // Set the flag for double-click
+    clearTimeout(singleClickTimer);
     var row = $(this).closest('tr');
-    var data = $('#customerSummaryTable').dataTable().fnGetData(row);
+    var data = $('#' + tableId).dataTable().fnGetData(row);
     mainTableList.push(data);
     $("#hdn_iId").val(data.iId);
     getCustomerDetails();
-
+    mainTableList = [];
 });
+
 function truncateInput(input) {
     let inputValue = input.value;
     console.log('inputValue:', inputValue);
@@ -336,9 +354,14 @@ function copyValue() {
 }
 
 $(document).ready(function () {
+    loadTree();
     var titleId = $('#hdn_TitleId').val();
     var fCreditAmount = { "fCreditAmount": $('#txtCrediamount').val() };
-    table = initializeDataTable('customerSummaryTable', '/Master/MasterSummaryDataTable', 'GetCustomerSummary', type);
+    initializeTable = () => {
+        return initializeDataTable(tableId, '/Master/MasterSummaryDataTable', 'GetCustomerSummary', type, parentId);
+    };
+  
+    table = initializeDataTable();
     // Initialize variables
     var initialLat = 11.8745;
     var initialLan = 75.3704;

@@ -14,7 +14,51 @@ function openModal(modalId) {
 function closeModal(modalId) {
     $("#" + modalId).hide();
 }
+$('#btnProperty').click(function () {
+    if (mainTableList.length > 0) {
+        openModal('property_modal');
+    }
+    else {
+        runError("Please Select Any Checkbox");
+    }
+});
 
+$("#btnPSave").click(function () {
+    var status = $("input:radio[name=prop]:checked").val()
+    var ids = mainTableList.join(',');
+    $.ajax({
+        url: '/Master/UpdateData',
+        type: "GET",
+        data: {
+            sAPIName: 'SetProperty', iId: ids, iMenuId: menuId,
+            iStatus: status
+        },
+
+        success: function (data) {
+            successCallBack(data);
+            closeModal('property_modal');
+        }
+
+
+    });
+
+});
+function successCallBack(data) {
+    data = JSON.parse(data);
+    if (data.Status == "Success") {
+        runsuccess1("Success");
+    }
+    else {
+
+        runError(data.MessageDescription);
+    }
+    table.ajax.reload();
+
+
+}
+$('#btnclss').click(function () {
+    closeModal('property_modal');
+})
 
 function initializeDataTable(tableId, apiSource, sApiName, menuId, parentId) {
 

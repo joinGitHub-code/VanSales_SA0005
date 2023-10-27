@@ -1,4 +1,5 @@
 ﻿var $treeView;
+var rootname = $('#hdn_title').val();
 function refreshTable() {
     table.destroy();
     table = initializeTable();
@@ -16,7 +17,8 @@ function loadTree() {
                         return {
                             'sAPIName': 'GetTreeView',
                             'iParentId': node.id === '#' ? 0 : node.id,
-                            'iMaster': menuId
+                            'iMaster': menuId,
+                            'rootnode': rootname
                         };
                     },
                 },
