@@ -134,6 +134,8 @@ F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp
 F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_MasterForm.cshtml.g.cs
 F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_MasterFormPartial.cshtml.g.cs
 F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_MasterSummaryPartial.cshtml.g.cs
+F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_SummaryRequestOrderPartial.cshtml.g.cs
+F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_TransactionRequestOrderPartial.cshtml.g.cs
 F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Home.cshtml.g.cs
 F:\PROJECTS\VANSALES_SANG\From@lia\NEW\VanSaleVNew\VanSales\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Request.cshtml.g.cs

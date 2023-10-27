@@ -1,0 +1,502 @@
+﻿
+
+
+
+<input type="hidden" id="VoucherId" value="1" />
+
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-12">
+            <div class="card my_card">
+                <h5 class="card-header my_card_hd">
+                    <a data-toggle="collapse" href="#collapse-example" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                        <i class="fa zmdi zmdi-chevron-down"></i>
+                    </a>
+                </h5>
+                @*this div will get displayed when Header div Collapsed*@
+                <div class="row clearfix my_gd" id="HeaderFieldsTabShowCollpase">
+                    @* style="position: absolute; right: 10px; margin-top: 3px; width: 15px; padding: 0px 10px; "*@     @*my_gd topspace*@
+                    @*<div class="col-sm-3">
+                    <div class="form-group">
+
+                    <label for="">Document No</label>
+                    <input type="text" class="form-control" id="tcollpasedoc_no" disabled>
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="form-group">
+                    <label for="">Date</label>
+
+                    <input type="text" class="form-control" id="tcollpasedate" disabled>
+
+
+
+                    </div>
+                    </div>*@
+                </div>
+
+                <div id="collapse-example" class="collapse show" aria-labelledby="heading-example">
+                    <div class="card-body ptX0">
+                        <div class="body p-0">
+                            <!-- Nav tabs -->
+                            <div id="displayTabs"><ul class="nav nav-tabs ptX0" style="padding-left: 0px; padding-right: 0px; margin-top: 2px;  margin-bottom: -15px;"><li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Tab0">Main</a></li><li class="nav-item"><a class="nav-link" data-toggle="tab" href="#atts">Attachments</a></li></ul></div>
+
+                            <div class="tab-content" id="tabSpace">
+                                <div role="tabpanel" class="tab-pane in active" id="Tab0">
+
+                                    <div class="row clearfix " id="HeaderFieldsTab0">
+                                        <input type="hidden" id="transid" value="0" />
+                                        <div class="col-sm-3" id="dDocNo">
+                                            <div class="form-group">
+                                                <label for="">Document No </label>
+                                                <input type="text" class="form-control" id="tdoc_no" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" id="dDate">
+                                            <div class="form-group">
+                                                <label for="">Date</label>
+                                                <i class="zmdi zmdi-calendar calendar_iccn"></i>
+                                                <input type="text" class="mandatory form-control datetimepicker " id="tdate" />
+
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="col-sm-3" id="divWarehouse">
+                                            <div class="form-group">
+                                                <label for=""><b>Warehouse</b></label>
+                                                @*<input type="text" id="tNarration" class="form-control" />*@
+                                                <input class="mandatory letter form-control inpt-stl-stl" type="text" id="Warehouse" onfocus="DataloadMasterTransaction('#Warehouse','/Master/GetAutoComplete','GetWarehouse')" />
+                                                <input type="hidden" id="Warehouse-id" />
+                                                <input type="hidden" id="Warehouse-iparent" />
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="">Narration</label>
+                                                <input type="text" class="form-control" id="tNarration" />
+                                            </div>
+                                        </div>
+                                                               
+                                      
+
+                                     
+
+
+                                        @*<div class="col-sm-3" id="dVendor">
+                                            <div class="form-group">
+                                                <label for=""><b>Place Of Supply</b></label>
+                                             
+                                                <input type="text" class="form-control" id="PlaceOfSupply" onfocus="DataLoadCall('#PlaceOfSupply','GetPOS','',0,'Account')" />
+                                                <input type="hidden" class="form-control" id="PlaceOfSupply-id" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for=""><b>Jurisdiction</b></label>
+                                               
+                                                <input type="text" class="form-control" id="Jurisdiction" onfocus="DataLoadCall('#Jurisdiction','GetJurisdiction','',0,'Account')" />
+                                                <input type="hidden" class="form-control" id="Jurisdiction-id" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for=""><b>InterCo</b></label>
+                                              
+                                                <input type="text" class="form-control" id="InterCo" onfocus="DataLoadCall('#InterCo','GetInterco','',0,'Account')" />
+                                                <input type="hidden" class="form-control" id="InterCo-id" value="0">
+                                            </div>
+                                        </div>*@
+
+                                        @*<div class="col-sm-3" id="dCurrency"><div class="form-group"><label for=""><b>Currency</b></label><input type="text" class="mandatory form-control mandatory" id="iCurrency" onfocus="DataLoadCall('#iCurrency','','/FocusMaxTransaction/GetAutoCompleteCurrency',0,'Currency')" /><input type="hidden" id="iCurrency-id" onchange="blurCurrency(event)" /></div></div><div class="col-sm-3" style="float: left;"><div class="form-group"><label for="">Currency Conv</label><input type="text" class="form-control mandatory" id="fExchangeRate" onchange="checkExchangeRate()" maxlen=10 /></div></div>*@
+
+
+                                      
+
+
+
+                                    </div>
+                                    <div class="row clearfix my_gd topspace">
+                                        @*id="HeaderFieldsTab0"*@
+                                    </div>
+                                             
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane" id="atts">
+
+
+                                    @*<div id="headerAttach">
+                                    <div class="row clearfix my_gd topspace">
+
+                                    <div class="col-sm-6">
+                                    <label class="Flabel" style="font-weight: 600;" onclick="">Document Type</label>
+                                    <input type="text" id="docAttch" class="ntextbox form-control" onfocus="loadfixedMasterInHead(14,0,event,@ViewBag.UID)" /> loadfixedMasterInHead in AutoComplete.js
+                                    <input type="hidden" id="docAttch-id" />  id="docAttchval"
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                    <label class="Flabel" for="docRefNo" style="" onclick="">Ref No</label>
+                                    <input type="text" id="docRefNo" class="ntextbox form-control" onfocus="getInvrow_column(event, -1)" />
+
+                                    </div>
+                                    </div>*@
+
+                                    <div class="row clearfix my_gd topspace" style="margin-top:7px">
+                                        <div class="col-sm-6">
+                                            <input type="file" class="letter" id="file" />
+
+                                            <input type="button" value="Add" id="uploaddocs" onclick="uploadtransfiles()" />   @* type="button" onclick="uploadtransfiles()"*@
+                                            <img src="../Content/Images/Progress.gif" id="imgup" style="height: 30px; width:150px; display:none;" />
+                                            <input type="hidden" id="isiNo" value="0" />
+                                            <label id="lblUploadError" style="right: 15px;" class="col-sm-10 col-form-label text-danger"> </label>
+                                            <input type="hidden" id="hdnAttachDel_rowID" />
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12" style="margin-top: 5px; margin-bottom: 5px;">
+                                                    <table class="table-bordered stripped" style="width:90%" id="tbltransAtt">
+                                                        <thead>
+                                                            <tr style="background-color: gray !important; text-align: center;">
+                                                                <th>  </th>
+                                                                <th>FileName</th>
+                                                                @*<th>RefNo</th>*@
+                                                                <th>File</th>
+                                                                <th>Actions</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbltransAttachbody">
+                                                        </tbody>
+
+                                                    </table>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix my_content" style="margin-top: -20px;">
+        <div class="col-12">
+            <div class="card my_card">
+                <h5 class="card-header my_card_hd">
+                    <a data-toggle="collapse" href="#collapse-example3" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block my_col">
+                        <i class="fa zmdi zmdi-chevron-down"></i>
+                    </a>
+                </h5>
+                <div id="collapse-example3" aria-labelledby="heading-example" class="collapse show">
+                    @*class="collapse show"*@
+                    <div class="card-body ptX0">
+                        <button class="btn btn-primary btn-round btn-sm" data-type="confirm" id="btnBDelete" style="position: absolute; right: 180px; margin-top:-10px; width:50px">
+                            @*margin-top:-23px*@
+                            <i class="zmdi zmdi-delete"></i>
+                        </button>   <br />
+
+                        <div class="row clearfix">
+
+                            <div class="table-responsive">
+                                <table id="receiptTransactionTable" class="table table-bordered table-striped table-hover " style="display: block; max-height: 30vh; overflow-y: scroll; ">
+
+                                    @*<thead style=" position: sticky; background-color: white; top:0;">*@
+                                    @*<thead style=" position: sticky; background-color: white; top:0;">*@
+
+                                    @*<tr>*@
+                                    <!-- <th style="width:18px !important">*</th>-->
+                                    @*<th style="width:20px"></th>*@
+                                    <!--<th style="width:40px">Sl No.</th>
+
+                                    <th style="width:250px;">Item</th>
+                                    <th style="width:100px">Qty</th>
+                                    <th style="width:100px">Rate</th>
+                                    <th style="width:100px">Gross</th>-->
+                                    @*</tr>*@
+                                    <thead style=" position: sticky; background-color: white; top:0;">
+                                        <tr>
+                                            <th style="width:18px !important">*</th>
+                                            <th style="width:40px">Sl No.</th>
+                                            <th style="width:250px;">Trade No</th>
+                                            <th style="width:250px;">Division</th>
+                                            <th style="width:250px;">Cost Centre</th>
+                                            <th style="width:250px;">Projects</th>
+                                            <th style="width:250px;">Business Unit</th>
+                                            <th style="width:250px;">Location</th>
+                                            <th style="width:250px;">SubTrade</th>
+                                            <th style="width:250px;">Account</th>
+                                            <th style="width: 250px; font-style: italic;">Amount</th>
+                                            <th style="width:450px">Reference</th>
+                                            <th style="width: 250px; font-style: italic;">Remarks</th>
+                                            <th style="width:250px;">Tax Code</th>
+                                            <th style="width: 250px; font-style: italic;">VAT</th>
+                                            <th style="width:250px;">Related Party</th>
+
+                                            @*<th style="width:250px;">ExtraNote1</th>
+                                            <th style="width:250px;">ExtraNote2</th>
+                                            <th style="width:250px;">ExtraNote3</th>
+                                            <th style="width:100px"></th>*@
+
+                                            <!--<th style="width:100px">Free Qty</th>
+                                            <th style="width:200px">Batch</th>
+                                            <th style="width:100px">Total Qty</th>
+                                            <th style="width:100px">Rate</th>
+                                            <th style="width:100px">Discount%</th>
+                                            <th style="width:100px">Dis Amount</th>
+                                            <th style="width:100px">Add Charges</th>
+                                            <th style="width:100px">Vat%</th>-->
+                                            @*  <th style="width:60px">vat</th>*@
+                                            <!--<th style="width:100px">Excise Tax%</th>
+                                            <th style="width:100px">Net</th>-->
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="receiptTransactionTableBody" class="gd_tab css-serial">
+                                        @*TableBodyData*@
+
+                                        @*NOT USED*@
+                                        <tr id='0'>
+                                            <td style="width: 1% !important;"><input style="height: 12px; width:14px;" type="checkbox" id="0" /></td>
+                                            <td class="CellWithComment"><span class="CellComment"> <i class="zmdi zmdi-plus" onclick="addLine(0)"></i><i class="zmdi zmdi-delete" onclick="deleteLine(0)" style="padding: 0px 5px; "></i></span></td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="TradeNo" type="text" id="iTag1_0" onfocus=DataLoadCall("#iTag1_0","GetTags","",1,"Tags") autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="iTag1_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="Division" type="text" id="iTag2_0" onfocus=DataLoadCall("#iTag2_0","GetTags","",2,"Tags") autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="iTag2_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="CostCentre" type="text" id="iTag4_0" onfocus=DataLoadCall("#iTag4_0","GetTags","",4,"Tags") autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="iTag4_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="Project" type="text" id="iTag5_0" onfocus=DataLoadCall("#iTag5_0","GetTags","",5,"Tags") autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="iTag5_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="BusinessUnit" type="text" id="iTag6_0" onfocus=DataLoadCall("#iTag6_0","GetTags","",6,"Tags") autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="iTag6_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="Location" type="text" id="iTag7_0" onfocus=DataLoadCall("#iTag7_0","GetTags","",7,"Tags") autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="iTag7_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="SubTrade" type="text" id="iTag8_0" onfocus=DataLoadCall("#iTag8_0","GetTags","",8,"Tags") autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="iTag8_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="CreditAccount" type="text" id="CreditAccount_0" onfocus="DataloadMaster_AccountType('#CreditAccount_0', 'GetAccount',  @ViewBag.iVoucherType, 2)" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="CreditAccount_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="Amount" type="text" id="Amount_0" onkeypress="addRow(0)" autocomplete="off" role="textbox">
+
+
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="Reference" type="text" id="Reference_0" autocomplete="off" role="textbox">
+                                                <input type="hidden" id="Reference_0-id" onchange="" value="0" />
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="Remarks" type="text" id="Remarks_0" autocomplete="off" role="textbox">
+
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="TaxCode" type="text" id="TaxCode_0" autocomplete="off" role="textbox">
+
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="VAT" type="text" id="Vat_0" autocomplete="off" role="textbox">
+
+                                            </td>
+                                            <td>
+                                                <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="RelatedParty" type="text" id="RelatedParty_0" onfocus="DataLoadCall('#RelatedParty_0','GetRelatedParty','',0,'RelatedParty')" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                                <input type="hidden" id="RelatedParty_0-id" onchange="" value="0" />
+                                                @*<input type="hidden" style="border: transparent;background-color: transparent;" readonly="readonly" id="ProductSelect0-code" />*@
+                                            </td>
+
+                                            @*<td>
+                                            <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="ExtraNotes1" type="text" id="ExtraNotes1_0" autocomplete="off" role="textbox">
+
+                                            </td>
+                                            <td>
+                                            <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="ExtraNotes2" type="text" id="ExtraNotes2_0" autocomplete="off" role="textbox">
+
+                                            </td>
+                                            <td>
+                                            <input style="width:250px;" class="ui-autocomplete-input form-control" placeholder="ExtraNotes3" type="text" id="ExtraNotes3_0" autocomplete="off" role="textbox">
+
+                                            </td>*@
+                                            @*<td onclick="add_row(0)" onkeypress="add_row(0)" style="width:100px"><input type="number" style="width:100px" class="form-control " placeholder="Qty" id="Inv_row0Col1" autocomplete="off" onfocusout="tot_quantity(id)" /></td>
+                                            <td>  <input type="number" style="width:100px" class="form-control " placeholder="Rate" id="Inv_row0Col2" onblur="onBlurInvTotal(event,0)" onfocus="getInvrow_column(event,0)" autocomplete="off" /></td>
+                                            <td id="gross_row0" style="width:100px"><input type="text" style="width:100px" class="form-control " placeholder="Gross" id="Inv_row0Col3" onblur="onBlurInvTotal(event,0)" onfocus="getInvrow_column(event,0)" autocomplete="off" /></td>*@
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ul class="nav nav-tabs ptX0" id="ulStaticFooter">
+                                <li class="nav-item"><a class="nav-link">Tot  Amount: <span id="totalAmount"></span></a> </li>
+
+                            </ul>
+                            @*</div>*@
+                            @*</div>*@
+                            @*</div>*@
+
+                        </div>
+                        <!--<div class="row clearfix">
+
+                            <label id="errLblNQtyMismatch" class="label-danger" style="color:orangered;font-family:'Times New Roman', Times, serif"></label><br />
+                            <label id="errLblSNQtyMismatch" class="label-danger" style="color:orangered;font-family:'Times New Roman', Times, serif"></label><br />-->
+                        @* <label id="errLblSNQtyMismatch" class="label-danger" style="color:orangered;font-family:'Times New Roman', Times, serif"></label><br />*@
+                        <!--<label id="errLblBodyMand" class="label-danger" style="color:orangered;font-family:'Times New Roman', Times, serif"></label><br />
+                            <label id="errLblN_FQtyMismatch" class="label-danger" style="color:orangered;font-family:'Times New Roman', Times, serif"></label>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Print Popup*@
+    <div id="TransPrintModal" class="modal md success in" role="dialog">
+        @*style="display: block;"*@
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Print</h4>
+                    @* <button type="button" class="close" data-dismiss="modal">×</button>*@
+
+                </div>
+                <div class="modal-body">
+
+                    <div id="printloader" class="d-none" style="position:absolute;">
+                        @*<img src="/Content/Images/LoadingGif.gif">*@
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><label>Layout</label></div>
+                        @* <div class="col-5"><select class="form-control" id="PrintLayout" onblur="onBlurPrintLayout(event)"><option value="1">LayOut1</option><option value="2">LayOut2</option></select></div>*@
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="LayoutSelect" onfocus="DataLoadCall('#LayoutSelect','','/FocusMaxTransaction/GetAutoCompleteCurrency',@ViewBag.iVoucherType,'Layout')" />
+                            <input type="hidden" id="LayoutSelect-id">
+                            <input type="hidden" id="LayoutSelect-apiname">
+                            <input type="hidden" id="LayoutSelect-rdlname">
+                        </div>
+                        @* <button type="button" class="btn btn-info waves-effect btn-round btn-sm" id="btnPrintPreview" onclick="onClickPrintPreview(event)">Preview</button>*@
+                        <button type="button" class="btn btn-primary btn-round btn-sm" id="btnPrint" onclick="onClickPrint(event)" style=" margin-left: 10px;">Print</button>
+                        <button type="button" class="btn  btn-danger btn-round btn-sm" data-dismiss="modal" onclick="closePrintPopup()" style=" margin-left: 10px;">Close</button>
+                    </div>
+
+                    @*<div id="divPDF">
+
+                    <div id="printerDiv">
+
+
+                    <iframe style="position: absolute; top: -1000px;" id="frmPDF" type="application/pdf"></iframe>
+                    </div>
+                    </div>*@
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*Print Popup*@
+    <div id="iFrameModal" class="modal md success in" role="dialog">
+        @*style="display: block;"*@
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                <h4 class="modal-title">Print</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+
+                </div>*@
+                <div class="modal-body">
+
+                    <div id="divPDF">
+
+                        <div id="printerDiv">
+                            <iframe style="width:100%;height:600px" id="frmPDF" type="application/pdf"></iframe>
+
+                            @*<iframe style="position: absolute; top: -1000px;" id="frmPDF" type="application/pdf"></iframe>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-info waves-effect btn-round btn-sm" id="btnPrintPreview" onclick="onClickPrintPreview(event)">Preview</button>
+                    <button type="button" class="btn btn-primary btn-round btn-sm" id="btnPrint" onclick="onClickPrint(event)">Print</button>*@
+                    <button type="button" class="btn  btn-danger btn-round btn-sm" data-dismiss="modal" onclick="closeiFramePrintPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*No need*@
+    <div id="TransPrintPreviewModal" class="modal md success" role="dialog">
+        <div class="modal-dialog modal-xl" style="min-width:100%;">
+            <div class="modal-content" style=" min-height:100vh; margin:0;top:0;left:0;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Print</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-danger btn-round btn-sm" data-dismiss="modal" onclick="closePrintPreviewPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+
+
+    @*<script src="~/js/Scripts/CustomScripts/AutoComplete.js" asp-append-version="true"></script>*@
+
+
+}
+

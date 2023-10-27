@@ -698,7 +698,7 @@ function Dataload_ForSingleParameter(TagName, sUrl, sApiName, iType) { //iType=5
 
 
 function DataloadMaster(TagName, surl, sApiName) {
-
+   
     $(TagName).autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -832,22 +832,16 @@ function DataloadMaster(TagName, surl, sApiName) {
         }
     });
 }
-function DataloadMasterLevels(sApiName, TagName, surl,sName) {
-    //Based on Group ,Type boarname and boardcode get loaded.
-    //sTagNameGroup-> Group tagname
-    //iTypeTagId-> Type tag id
-    //iMaster -> 1 -> Account
-    //iMaster -> 2 -> Product
-    //sTagNameBoardCode -> boardcode tagname
-    //  alert("DataloadMasterBoard" + sApiName)
-    //  alert($("#CompanySelect-id").val());
-    // if (($("#CompanySelect").val()) != "") {
+function DataloadMasterTransaction(TagName, surl, sApiName) {
+    
     $(TagName).autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: surl,
-                data: { sApiName: sApiName, sName: sName, sSearchValue: request.term },
-                /*  data: { company: parseInt($("#CompanySelect-id").val()), search: request.term, type: SearchTypeAuto },*/
+                data: {
+                    sAPIName: sApiName, sSearchValue: request.term, iType: SearchTypeAuto
+                },
+                             
                 success: function (data, res) {
                     h = 0; if (data != "Error") {
                         response($.map(data, function (item) {
@@ -898,13 +892,14 @@ function DataloadMasterLevels(sApiName, TagName, surl,sName) {
                    // alert(TagName)
                     $(TagName).val(ui.item.sName);
                     $(TagName + "-id").val(ui.item.iId).trigger('change');
-
+                    $(TagName + "-code").val(ui.item.sCode)
                     //alert("txtlevel1-id" + ui.item.iId);
                     //$(sTagNameBoardCode).val(ui.item.sCode);
                 }
                 else {
                     $(TagName).val("");
-                    //$(TagName + "-id").val(0);
+                    $(TagName + "-id").val(0);
+                    $(TagName + "-code").val(0);
                     // $(sTagNameBoardCode).val("");
 
                 }

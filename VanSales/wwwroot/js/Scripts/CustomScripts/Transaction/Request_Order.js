@@ -1754,8 +1754,8 @@ function DisplayTransaction() {
     var checkboxCell = $('<td><input style="height: 12px; width: 12px;" type="checkbox" id="' + iTransDtId + '"></td>');
     var commentCell = $('<td class="CellWithComment"><span class="CellComment"><i class="zmdi zmdi-plus" onclick="addLine(' + iTransDtId + ')"></i><i class="zmdi zmdi-delete" onclick="deleteLine(' + iTransDtId + ')" style="padding: 0px 5px;"></i></span></td>');
 
-    var tradeNoCell = createTableCell("TradeNo", "150px", "iTag1_" + iTransDtId, 'DataLoadCall("#iTag1_' + iTransDtId + '","GetTags","",1,"Tags")', 'setFooterdata()');
-    var divisionCell = createTableCell("Division", "150px", "iTag2_" + iTransDtId, 'DataLoadCall("#iTag2_' + iTransDtId + '","GetTags","",2,"Tags")', 'setFooterdata()');
+    var tradeNoCell = createTableCell("Product", "150px", "Product_" + iTransDtId, 'DataloadMasterTransaction("#Product_' + iTransDtId + '","/Master/GetAutoComplete","GetProduct")', 'setFooterdata()');
+    var divisionCell = createTableCell("Unit", "150px", "Unit_" + iTransDtId, 'DataloadMaster("#Unit_' + iTransDtId + '","GetTags","",2,"Tags")', 'setFooterdata()');
     var costCentreCell = createTableCell("CostCentre", "200px", "iTag4_" + iTransDtId, 'DataLoadCall("#iTag4_' + iTransDtId + '","GetTags","",4,"Tags")', 'setFooterdata()');
     var projectCell = createTableCell("Project", "200px", "iTag5_" + iTransDtId, 'DataLoadCall("#iTag5_' + iTransDtId + '","GetTags","",5,"Tags")', 'setFooterdata()');
     var businessUnitCell = createTableCell("BusinessUnit", "150px", "iTag6_" + iTransDtId, 'DataLoadCall("#iTag6_' + iTransDtId + '","GetTags","",6,"Tags")', 'setFooterdata()');
