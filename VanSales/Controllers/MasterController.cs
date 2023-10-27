@@ -371,7 +371,7 @@ namespace VanSale.Controllers
 
         #region TreeView
         [HttpGet]
-        public async Task<IActionResult> GetTreeData(string sAPIName, int iParentId, int iMaster)
+        public async Task<IActionResult> GetTreeData(string sAPIName, int iParentId, int iMaster,string rootnode)
         {
             string _sAPIFullPath = api + sAPIName + "?iParentId=" + iParentId + "&iMaster=" + iMaster;
 
@@ -398,7 +398,7 @@ namespace VanSale.Controllers
                                 treeData.Add(new
                                 {
                                     id = 0, // Unique ID for the root node
-                                    text = "WareHouse", // Replace with the title of your root node
+                                    text =  rootnode, // Replace with the title of your root node
                                     children = data
                                         .Where(node => node.iParentId == 0)
                                         .Select(node => new
